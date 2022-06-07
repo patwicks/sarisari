@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-white font-poppins text-base text-blacky;
+  }
+}
+@layer components {
+  .center {
+    @apply flex items-center justify-center;
+  }
+  .form-input {
+    @apply mt-7 w-full rounded-full border border-whitey-200 px-4 py-2 text-sm text-subBlack outline-primary;
+  }
+  .form-btn {
+    @apply smooth-animation mt-8 w-full rounded-full bg-primary p-2 text-white hover:opacity-80;
+  }
+  .error {
+    @apply mt-1 w-full px-4 text-sm text-red-500;
+  }
+  .smooth-animation {
+    @apply transition-all ease-in-out;
+  }
+}
