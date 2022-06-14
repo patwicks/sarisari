@@ -1,9 +1,8 @@
-import React from 'react'
+import React,{memo} from "react";
 
 const Main = () => {
-  return (
-    <div>Main</div>
-  )
-}
+  console.log("Main Menu");
+  return <div>Main</div>;
+};
 
-export default Main
+export default memo(Main);
