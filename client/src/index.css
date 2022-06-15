@@ -24,4 +24,7 @@
   .smooth-animation {
     @apply transition-all ease-in-out;
   }
+  .active {
+    @apply text-primary;
+  }
 }

@@ -20,5 +20,7 @@ module.exports = {
       },
     },
   },
+  variants: ["responsive", "hover", "focus", "active"],
+
   plugins: [require("tailwindcss-animation-delay")],
 };

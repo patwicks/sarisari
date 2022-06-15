@@ -9,27 +9,27 @@ const menuList = [
   {
     title: "Home",
     route: "/",
-    icon: <AiFillHome className="mx-4 text-xl text-primary" />,
+    icon: <AiFillHome />,
   },
   {
     title: "Product",
     route: "/products",
-    icon: <AiOutlineShoppingCart className="mx-4 text-xl text-primary" />,
+    icon: <AiOutlineShoppingCart />,
   },
   {
     title: "Sales",
     route: "/sales",
-    icon: <BsGraphUp className="mx-4 text-xl text-primary" />,
+    icon: <BsGraphUp />,
   },
   {
     title: "Credit",
     route: "/credit",
-    icon: <BsCreditCard2BackFill className="mx-4 text-xl text-primary" />,
+    icon: <BsCreditCard2BackFill />,
   },
   {
     title: "Account",
     route: "/account",
-    icon: <MdManageAccounts className="mx-4 text-xl text-primary" />,
+    icon: <MdManageAccounts />,
   },
 ];
 
