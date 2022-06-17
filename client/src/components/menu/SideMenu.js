@@ -17,22 +17,15 @@ const SideMenu = () => {
       </div>
       {/* Top end / list menu start */}
       <div>
-        <ul>
+        <ul className="h-full w-full">
           {menuList?.map((list, index) => (
-            <li
-              className="flex h-16 items-center p-0 transition duration-100 ease-in-out "
-              key={index}
-            >
+            <li key={index} className="p-0">
               <NavLink
-                className="flex h-full w-full items-center"
                 to={list.route}
+                className="active:text-bold flex h-14 w-full items-center justify-center hover:bg-blacky/10 md:justify-start"
               >
-                <span className="text-md text-primary hover:text-lg md:mx-4 md:text-xl">
-                  {list.icon}
-                </span>
-                <span className="scale-0 text-sm md:scale-100">
-                  {list.title}
-                </span>
+                <span className="text-lg md:mx-3">{list.icon}</span>
+                <span className="hidden md:block">{list.title}</span>
               </NavLink>
             </li>
           ))}
