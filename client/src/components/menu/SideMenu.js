@@ -22,7 +22,7 @@ const SideMenu = () => {
             <li key={index} className="p-0">
               <NavLink
                 to={list.route}
-                className="active:text-bold flex h-14 w-full items-center justify-center hover:bg-blacky/10 md:justify-start"
+                className="flex h-14 w-full items-center justify-center hover:bg-blacky/10 md:justify-start"
               >
                 <span className="text-lg md:mx-3">{list.icon}</span>
                 <span className="hidden md:block">{list.title}</span>
