@@ -20,30 +20,27 @@ const ProductSearched = () => {
           </th>
         </thead>
         <tbody>
-          <td className="flex items-center justify-center">
-            <div className="h-7 w-7 overflow-hidden rounded-full bg-primary/50">
-              <img
-                className="h-full w-full object-center"
-                src={require("../../assets/products.png")}
-                alt="product"
-              />
-            </div>
-          </td>
-          <td className="p-2 text-center text-sm">
-            White Milk 2Liter White Milk 2Liter
-          </td>
-          <td className="p-2 text-center text-sm">250</td>
-          <td className="p-2 text-center text-sm">₱ 28.50</td>
-          <td className="p-2 text-center text-sm">
-            <div className="flex gap-x-2">
-              <button className="h-5 w-5 rounded-md bg-primary text-white hover:opacity-70">
-                -
-              </button>
-              <button className="h-5 w-5 rounded-md bg-primary text-white hover:opacity-70">
+          <tr>
+            <td className="flex items-center justify-center">
+              <div className="h-7 w-7 overflow-hidden rounded-full bg-primary/50">
+                <img
+                  className="h-full w-full object-center"
+                  src={require("../../assets/products.png")}
+                  alt="product"
+                />
+              </div>
+            </td>
+            <td className="p-2 text-center text-sm">
+              White Milk 2Liter White Milk 2Liter
+            </td>
+            <td className="p-2 text-center text-sm">250</td>
+            <td className="p-2 text-center text-sm">₱ 28.50</td>
+            <td className="p-2 text-center text-sm">
+              <button className="h-7 w-7 rounded-sm bg-primary text-white hover:opacity-70">
                 +
               </button>
-            </div>
-          </td>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
