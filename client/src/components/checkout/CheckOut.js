@@ -1,13 +1,17 @@
 import React from "react";
-
+import { useNavigate } from "react-router-dom";
 //icons
 import { IoChevronBack } from "react-icons/io5";
 
 const CheckOut = () => {
+  const navigate = useNavigate();
   return (
     <div className="h-full max-h-screen w-full overflow-scroll p-2">
       <div className="flex items-center">
-        <IoChevronBack className="cursor-pointer rounded-full p-1 text-3xl font-bold hover:bg-whitey-300" />
+        <IoChevronBack
+          className="cursor-pointer rounded-full p-1 text-3xl font-bold hover:bg-whitey-300"
+          onClick={() => navigate("/")}
+        />
       </div>
       <div>
         <h1 className="py-5 text-xl uppercase">Items</h1>

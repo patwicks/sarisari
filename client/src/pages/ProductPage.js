@@ -1,7 +1,9 @@
 import React from "react";
+// local imports
+import Product from "../components/product/Product";
 
 const ProductPage = () => {
-  return <div>ProductPage</div>;
+  return <Product />;
 };
 
 export default ProductPage;
