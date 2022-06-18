@@ -8,7 +8,7 @@ import Logo from "../assets/logo.png";
 import Main from "../components/main/Main";
 const HomePage = () => {
   let navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

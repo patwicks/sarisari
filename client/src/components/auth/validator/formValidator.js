@@ -10,6 +10,7 @@ export const signupValueValidator = new Yup.object().shape({
     .min(5, "Username must be atleast 5 characters long!")
     .required("Username is required!"),
   password: Yup.string()
+    .min(8, "Password must be atleast 8 characters long!")
     .matches(passwordRules, "Password must have atleast 1 numerical character!")
     .required("Password is  required!"),
   confirmPassword: Yup.string()
