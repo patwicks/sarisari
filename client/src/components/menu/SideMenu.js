@@ -8,7 +8,7 @@ const SideMenu = () => {
   return (
     <div className="h-full w-full overflow-hidden bg-whitey-100">
       {/* Top start */}
-      <div className="center w-full flex-col bg-primary p-4 text-white">
+      <div className="center w-full flex-col bg-primary/80 p-4 text-white">
         <div className="h-5 w-5 overflow-hidden rounded-full border-2 border-whitey-200/75 md:h-16 md:w-16">
           <img className="h-full w-full" src={DEFAULT_IMG} alt="profile" />
         </div>

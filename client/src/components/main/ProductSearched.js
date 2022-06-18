@@ -6,18 +6,20 @@ const ProductSearched = () => {
       <p className="mb-4 text-sm">Product</p>
       <table className="w-full ">
         <thead>
-          <th className="text-semibold text-center text-sm text-blacky/80">
-            Image
-          </th>
-          <th className="text-semibold text-center text-sm text-blacky/80">
-            Name
-          </th>
-          <th className="text-semibold text-center text-sm text-blacky/80">
-            Available
-          </th>
-          <th className="text-semibold text-center text-sm text-blacky/80">
-            Price
-          </th>
+          <tr>
+            <th className="text-semibold text-center text-sm text-blacky/80">
+              Image
+            </th>
+            <th className="text-semibold text-center text-sm text-blacky/80">
+              Name
+            </th>
+            <th className="text-semibold text-center text-sm text-blacky/80">
+              Available
+            </th>
+            <th className="text-semibold text-center text-sm text-blacky/80">
+              Price
+            </th>
+          </tr>
         </thead>
         <tbody>
           <tr>
