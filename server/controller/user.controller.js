@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const cloudinary = require("../utils/cloudinary.utils");
 //local imports
 const User = require("../model/user.model"); //model
 const {
@@ -131,3 +132,60 @@ exports.AUTO_LOGIN = async (req, res) => {
     return res.status(200).json({ isLogin: false, user: null });
   }
 }; //Auto login user base on cookies browser
+
+exports.LOGOUT_USER = async (req, res) => {
+  try {
+    res.cookie("token", null, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      maxAge: 1,
+    });
+    res.status(200).json({ successMessage: "Successfully logout!" });
+  } catch (error) {
+    return res.cookie("token", null, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      maxAge: 1,
+    });
+  }
+}; //logout user by throwing cookie with very low maxAge
+
+exports.UPDATE_PROFILE_PIC = async (req, res) => {
+  try {
+    const { userID } = req.params;
+    const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+      folder: "profile",
+      public_id: `${userID}_profile`,
+    });
+
+    const user = await User.findById(userID);
+
+    if (uploadResult.url === null) {
+      return res
+        .status(400)
+        .json({ errorMessage: "Failed to upload new profile image!" });
+    } else {
+      const update = await User.findByIdAndUpdate(user._id, {
+        profile: uploadResult.url,
+      });
+      if (!update) {
+        return res
+          .status(400)
+          .json({ errorMessage: "Failed to update profile!" });
+      } else {
+        return res.status(200).json({
+          successMessage: "You have Successfully update your profile!",
+        });
+      }
+    }
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({
+      errorMessage: "Something went wrong while updating profile, try again!",
+    });
+  }
+}; //update profile profile picture
+
+//change password
