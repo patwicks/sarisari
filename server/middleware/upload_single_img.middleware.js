@@ -13,6 +13,8 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const HANDLE_PROFILE_UPLOAD = multer({ storage, fileFilter }).single("profile");
+const HANDLE_SINGLE_IMG_UPLOAD = multer({ storage, fileFilter }).single(
+  "image"
+);
 
-module.exports = HANDLE_PROFILE_UPLOAD;
+module.exports = HANDLE_SINGLE_IMG_UPLOAD;

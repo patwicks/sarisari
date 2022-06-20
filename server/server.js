@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const app = express();
 // app router
 const userRoutes = require("./routes/user.routes");
+const productRoutes = require("./routes/product.routes");
 
 // middlewares
 dotenv.config();
@@ -19,7 +20,8 @@ app.use(
   })
 );
 // app used routes
-app.use("/api/user", userRoutes)
+app.use("/api/user", userRoutes);
+app.use("/api/product", productRoutes);
 
 // connect to database
 
