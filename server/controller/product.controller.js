@@ -23,9 +23,15 @@ exports.FETCH_ALL_PRODUCTS = async (req, res) => {
 exports.ADD_PRODUCT = async (req, res) => {
   try {
     const { item_code, image, name, category, stock, status, price } = req.body;
-
     const { error } = productReqValidator(req.body);
 
+    const isProductExist = await Product.findOne({ item_code });
+    //return if product is existing
+    if (isProductExist)
+      return res
+        .status(400)
+        .json({ errorMessage: "Product is already existing!" });
+    //error
     if (error) {
       return res.status(400).json({ errorMessage: error.details[0].message });
     } else {
@@ -153,4 +159,35 @@ exports.SEARCH_PRODUCT = async (req, res) => {
       errorMessage: "Something went wrong while searching product, try again!",
     });
   }
-}; // Search query for product product
+}; // SEARCH QUERY FOR PRODUCT - BY NAME - BY ITEM CODE
+
+//UPDATE MULTIPLE STOCK AFTER CHECKOUT
+exports.UPDATE_PRODUCTS_STOCK = async (req, res) => {
+  try {
+    //need an array req body
+    const purchaseProducts = req.body;
+    if (purchaseProducts === null) {
+      return res
+        .status(400)
+        .json({ errorMessage: "Please purchase a product first!" });
+    } else {
+      purchaseProducts.forEach(async (product) => {
+        const updateStock = await Product.findByIdAndUpdate(
+          { _id: product.id },
+          { stock: product.newStock }
+        );
+        updateStock.save();
+      });
+
+      return res
+        .status(200)
+        .json({ successMessage: "Transaction successfull!" });
+    }
+  } catch (error) {
+    console.error(error); //for deubbuging only
+    return res.status(400).json({
+      errorMessage:
+        "Something went went wrong while checking out the transaction!",
+    });
+  }
+};

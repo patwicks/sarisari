@@ -1,0 +1,25 @@
+Category
+
+Canned goods
+Instant coffee
+Rice
+Toiletries
+Powdered drinks
+Instant sauces
+Cooking oil
+Instant noodles
+Snacks
+Sugar
+
+transaction
+owner ID:
+allTransaction: transactionId and populate
+dailyTotalSales: reset after closing
+dailyNumberTransaction: reset after closing array save transactionId and populate
+dailyTotalSalesRecord;
+
+transaction schema
+purchaseProduct: [
+    {id, newStock, quantity, price, total},
+]
+timestamps:
