@@ -3,6 +3,16 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      animation: {
+        "zoom-animation": "zoom 1s linear infinite",
+      },
+      keyframes: {
+        zoom: {
+          "0%": { transform: "scale(0.1)" },
+          "50%": { transform: "scale(1)" },
+          "100%": { transform: "scale(0.1)" },
+        },
+      },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
       },

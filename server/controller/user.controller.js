@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cloudinary = require("../utils/cloudinary.utils");
+
 //local imports
 const User = require("../model/user.model"); //model
 const {
@@ -115,6 +116,7 @@ exports.LOGIN_USER = async (req, res) => {
 exports.AUTO_LOGIN = async (req, res) => {
   try {
     const token = req.cookies.token;
+
     if (!token) {
       return res.status(200).json({ isLogin: false, user: null });
     } else {
@@ -123,9 +125,9 @@ exports.AUTO_LOGIN = async (req, res) => {
       const user = await User.findById({ _id: id });
       //is there is a user throw the user data else not
       if (!user) {
-        return res.status(200).json({ isLogin: true, user });
+        return res.status(400).json({ isLogin: false, user: null });
       } else {
-        return res.status(200).json({ isLogin: false, user: null });
+        return res.status(200).json({ isLogin: true, user });
       }
     }
   } catch (error) {

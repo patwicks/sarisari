@@ -1,21 +1,31 @@
 import React from "react";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 //images
 import Logo from "../../../assets/logo.png";
 //local imports
 import { signinValueValidator } from "../validator/formValidator";
+//store
+import useUserStore from "../../../store/userStore";
 
 const SigninForm = () => {
+  let navigate = useNavigate();
+  const { loginUser } = useUserStore((state) => ({
+    loginUser: state.loginUser,
+    autoLoginUser: state.autoLoginUser,
+    isLogin: state.isLogin,
+  }));
   //formik
   const onSubmit = (values, actions) => {
-    console.log(values);
+    loginUser(values);
+    navigate("/");
+    actions.resetForm();
   };
   const {
-    values,
     handleChange,
     handleBlur,
     handleSubmit,
+    values,
     touched,
     errors,
     isSubmitting,
@@ -27,6 +37,7 @@ const SigninForm = () => {
     validationSchema: signinValueValidator,
     onSubmit,
   });
+
   return (
     <div className="center mt-10 w-full flex-col sm:w-4/5 md:w-[450px]">
       {/* Form header start */}
@@ -78,6 +89,7 @@ const SigninForm = () => {
         <button disabled={isSubmitting} className="form-btn" type="submit">
           {isSubmitting ? "Signing in..." : "Signin"}
         </button>
+
         <p className="my-4 w-full text-center text-sm text-subBlack">
           Don't have an account?
           <span className="smooth-animation cursor-pointer text-blacky hover:text-primary">

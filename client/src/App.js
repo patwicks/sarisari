@@ -8,12 +8,14 @@ import ProductPage from "./pages/ProductPage";
 import SigninPage from "./pages/SigninPage";
 import SignupPage from "./pages/SignupPage";
 import CheckOutPage from "./pages/CheckOutPage";
+
 //layout
 import layout from "./hoc/Layout";
 
 const HomePageComponent = layout(HomePage);
 const ProductPageComponent = layout(ProductPage);
 const CheckOutComponent = layout(CheckOutPage);
+
 // const
 const App = () => {
   return (

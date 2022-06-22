@@ -1,38 +1,30 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
 //local imports
-//utils
-import Loader from "../utils/Loader";
-//images
-import Logo from "../assets/logo.png";
 import Main from "../components/main/Main";
+import Loader from "../utils/Loader"
+import useUserStore from "../store/userStore";
+
 const HomePage = () => {
-  let navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+  const { autoLoginUser, isLoading } = useUserStore(
+    (state) => state
+  );
+
+  const handleLogin = React.useCallback(() => {
+    autoLoginUser();
+  }, [autoLoginUser]);
 
   useEffect(() => {
-    if (isLogin === false) {
-      navigate("/signin");
-    } else {
-      navigate("/");
-    }
-  }, [isLogin, navigate]);
+    handleLogin();
+  }, [handleLogin]);
+
   return (
     <>
       {isLoading === true ? (
-        <div className="center h-screen w-screen flex-col bg-white">
-          <div className="mb-2 h-10 w-10 animate-bounce animation-delay-100">
-            <img
-              className="h-full w-full object-center"
-              src={Logo}
-              alt="sarisaristore"
-            />
-          </div>
+        <div className="center h-full w-full bg-white">
           <Loader />
         </div>
       ) : (
-        <Main />
+      <Main />
       )}
     </>
   );

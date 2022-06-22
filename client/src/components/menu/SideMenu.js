@@ -2,17 +2,20 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 //local imports
 import menuList from "./menuList";
-//images
-import DEFAULT_IMG from "../../assets/default.png";
+//store
+import useUserStore from "../../store/userStore";
+
 const SideMenu = () => {
+  const user = useUserStore((state) => state.user);
+
   return (
     <div className="h-full w-full overflow-hidden bg-whitey-100">
       {/* Top start */}
       <div className="center w-full flex-col bg-primary/80 p-4 text-white">
         <div className="h-5 w-5 overflow-hidden rounded-full border-2 border-whitey-200/75 md:h-16 md:w-16">
-          <img className="h-full w-full" src={DEFAULT_IMG} alt="profile" />
+          <img className="h-full w-full" src={user?.profile} alt="profile" />
         </div>
-        <h1 className="mt-2 hidden text-xl font-bold md:block">Patrick</h1>
+        <h1 className="mt-2 hidden text-xl font-bold md:block capitalize">{user?.username}</h1>
         <p className="hidden text-sm text-whitey-200 md:block">owner</p>
       </div>
       {/* Top end / list menu start */}

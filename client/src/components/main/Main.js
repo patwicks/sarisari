@@ -1,13 +1,24 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // icons
 import { FaShoppingCart } from "react-icons/fa";
 // local imports
 import ProductSearched from "./ProductSearched";
+//store
+import useUserStore from "../../store/userStore";
 
 const Main = () => {
   const navigate = useNavigate();
-  console.log("Log Main Menu");
+  const isLogin = useUserStore((state) => state.isLogin);
+
+  useEffect(() => {
+    if (isLogin === true) {
+      navigate("/");
+    } else {
+      navigate("/signin");
+    }
+  }, [isLogin, navigate]);
+
   return (
     <div className="h-full w-full py-2 px-2 pt-5">
       {/* top search input */}
@@ -24,7 +35,7 @@ const Main = () => {
           className="absolute top-0 right-0 cursor-pointer text-xl text-whitey-300 hover:opacity-75"
           onClick={() => navigate("/checkout")}
         />
-        <p className="center absolute -right-2 -top-2 h-4 w-4 rounded-full bg-primary text-[0.7rem] text-whitey-100 font-semibold">
+        <p className="center absolute -right-2 -top-2 h-4 w-4 rounded-full bg-primary text-[0.7rem] font-semibold text-whitey-100">
           0
         </p>
       </div>
