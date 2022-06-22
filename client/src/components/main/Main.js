@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import React, { memo } from "react";
 import { useNavigate } from "react-router-dom";
 // icons
 import { FaShoppingCart } from "react-icons/fa";
@@ -7,7 +7,7 @@ import ProductSearched from "./ProductSearched";
 const Main = () => {
   const navigate = useNavigate();
   return (
-    <div className="h-full w-full min-w-[288px] py-2 px-2 pt-5 bg-whitey-100">
+    <div className="h-full w-full min-w-[288px] bg-whitey-100 py-2 px-2 pt-5">
       {/* top search input */}
       <div className="relative w-full">
         <p className="mb-4 text-sm">Search by product name:</p>

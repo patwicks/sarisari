@@ -1,3 +1,16 @@
+input
+itemcode
+name
+stock
+category
+status
+price
+
+status = default in stock
+
+
+
+
 Category
 
 Canned goods

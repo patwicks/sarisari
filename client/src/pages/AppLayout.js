@@ -9,6 +9,7 @@ const AppLayout = ({ children }) => {
   React.useEffect(() => {
     autoLoginUser();
   }, [autoLoginUser]);
+
   return (
     <>
       {isLoading === true || isLogin === false ? (
@@ -20,7 +21,7 @@ const AppLayout = ({ children }) => {
           <div className="absolute z-10 h-full w-[10%] min-w-[2rem] overflow-hidden bg-slate-400 text-blacky md:w-[20%]">
             <SideMenu />
           </div>
-          <div className="ml-[10%] overflow-scroll md:ml-[20%] md:overflow-auto p-2">
+          <div className="ml-[10%] overflow-scroll md:p-2 md:ml-[20%] md:overflow-auto">
             {children}
           </div>
         </div>

@@ -16,10 +16,10 @@ const SigninPage = () => {
 
   //formik
   const onSubmit = (values, actions) => {
-    loginUser(values);
     setTimeout(() => {
+      loginUser(values);
       navigate("/");
-      actions.resetForm();
+      // actions.resetForm();
     }, 2000);
   };
 
