@@ -1,32 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 //local imports
 import Main from "../components/main/Main";
-import Loader from "../utils/Loader"
-import useUserStore from "../store/userStore";
+// layout
+import AppLayout from "./AppLayout";
 
 const HomePage = () => {
-  const { autoLoginUser, isLoading } = useUserStore(
-    (state) => state
-  );
-
-  const handleLogin = React.useCallback(() => {
-    autoLoginUser();
-  }, [autoLoginUser]);
-
-  useEffect(() => {
-    handleLogin();
-  }, [handleLogin]);
-
   return (
-    <>
-      {isLoading === true ? (
-        <div className="center h-full w-full bg-white">
-          <Loader />
-        </div>
-      ) : (
+    <AppLayout>
       <Main />
-      )}
-    </>
+    </AppLayout>
   );
 };
 

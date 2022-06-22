@@ -4,23 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 // local imports
 import ProductSearched from "./ProductSearched";
-//store
-import useUserStore from "../../store/userStore";
-
 const Main = () => {
   const navigate = useNavigate();
-  const isLogin = useUserStore((state) => state.isLogin);
-
-  useEffect(() => {
-    if (isLogin === true) {
-      navigate("/");
-    } else {
-      navigate("/signin");
-    }
-  }, [isLogin, navigate]);
-
   return (
-    <div className="h-full w-full py-2 px-2 pt-5">
+    <div className="h-full w-full min-w-[288px] py-2 px-2 pt-5 bg-whitey-100">
       {/* top search input */}
       <div className="relative w-full">
         <p className="mb-4 text-sm">Search by product name:</p>

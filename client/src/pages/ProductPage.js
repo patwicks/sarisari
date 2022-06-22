@@ -1,11 +1,16 @@
 import React from "react";
 // local imports
 import Product from "../components/product/Product";
-import useUserStore from "../store/userStore";
+//main layout
+import AppLayout from "./AppLayout";
+
 const ProductPage = () => {
-  const user = useUserStore((state) => state.user);
-  console.log(user);
-  return <Product />;
+
+  return (
+    <AppLayout>
+      <Product />
+    </AppLayout>
+  );
 };
 
 export default ProductPage;

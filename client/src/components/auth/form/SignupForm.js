@@ -1,16 +1,10 @@
 import React from "react";
-import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 //images
 import Logo from "../../../assets/logo.png";
 //local imports
-import { signupValueValidator } from "../validator/formValidator";
 
-const SignupForm = () => {
-  //formik
-  const onSubmit = (values, actions) => {
-    console.log(values);
-  };
+const SignupForm = (props) => {
   const {
     values,
     handleChange,
@@ -19,15 +13,7 @@ const SignupForm = () => {
     touched,
     errors,
     isSubmitting,
-  } = useFormik({
-    initialValues: {
-      username: "",
-      password: "",
-      confirmPassword: "",
-    },
-    validationSchema: signupValueValidator,
-    onSubmit,
-  });
+  } = props;
   return (
     <div className="center mt-10 w-full flex-col sm:w-4/5 md:w-[450px]">
       {/* Form header start */}

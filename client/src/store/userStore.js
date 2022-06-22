@@ -1,5 +1,4 @@
 import create from "zustand";
-import { devtools, persist } from "zustand/middleware";
 import API from "../api/Api";
 
 const userStore = (set) => ({
@@ -13,8 +12,8 @@ const userStore = (set) => ({
       const res = await API.post("/user/login", data, {
         withCredentials: true,
       });
-      if (res) {
-        window.location.reload(false);
+      if (res.data) {
+        console.log(res.data);
       }
     } catch (error) {
       console.error(error.response);
@@ -36,5 +35,5 @@ const userStore = (set) => ({
   },
 });
 
-const useUserStore = create(devtools(persist(userStore, { name: "user" })));
+const useUserStore = create(userStore);
 export default useUserStore;

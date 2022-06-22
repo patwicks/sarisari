@@ -1,26 +1,9 @@
 import React from "react";
-import { useFormik } from "formik";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 //images
 import Logo from "../../../assets/logo.png";
-//local imports
-import { signinValueValidator } from "../validator/formValidator";
-//store
-import useUserStore from "../../../store/userStore";
 
-const SigninForm = () => {
-  let navigate = useNavigate();
-  const { loginUser } = useUserStore((state) => ({
-    loginUser: state.loginUser,
-    autoLoginUser: state.autoLoginUser,
-    isLogin: state.isLogin,
-  }));
-  //formik
-  const onSubmit = (values, actions) => {
-    loginUser(values);
-    navigate("/");
-    actions.resetForm();
-  };
+const SigninForm = (props) => {
   const {
     handleChange,
     handleBlur,
@@ -29,15 +12,7 @@ const SigninForm = () => {
     touched,
     errors,
     isSubmitting,
-  } = useFormik({
-    initialValues: {
-      username: "",
-      password: "",
-    },
-    validationSchema: signinValueValidator,
-    onSubmit,
-  });
-
+  } = props;
   return (
     <div className="center mt-10 w-full flex-col sm:w-4/5 md:w-[450px]">
       {/* Form header start */}
