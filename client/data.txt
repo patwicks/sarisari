@@ -13,7 +13,7 @@ status = default in stock
 
 Category
 
-Canned goods
+canned goods
 Instant coffee
 Rice
 Toiletries

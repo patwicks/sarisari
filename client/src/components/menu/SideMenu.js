@@ -13,7 +13,7 @@ const SideMenu = () => {
       {/* Top start */}
       <div className="center w-full flex-col bg-primary/80 p-2 md:p-4 text-white">
         <div className="h-7 w-7 overflow-hidden rounded-full border-2 border-whitey-200/75 md:h-16 md:w-16">
-          <img className="h-full w-full" src={user?.profile} alt="profile" />
+          <img className="h-full w-full object-center object-cover" src={user?.profile} alt="profile" />
         </div>
         <h1 className="mt-2 hidden text-xl font-bold md:block capitalize">{user?.username}</h1>
         <p className="hidden text-sm text-whitey-200 md:block">owner</p>
