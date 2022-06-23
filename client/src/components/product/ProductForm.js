@@ -1,10 +1,20 @@
 import React from "react";
 // icons
 import { MdArrowBackIos } from "react-icons/md";
+// store
+import useProductStore from "../../store/productStore";
 
 const ProductForm = (props) => {
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
-    props;
+  const {serverError, serverSuccess} = useProductStore((state) => state)
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = props;
   return (
     <div className="center min-w-[288px] flex-col">
       <div className="relative w-full items-center bg-whitey-200 py-2">
@@ -17,9 +27,13 @@ const ProductForm = (props) => {
         Product Information:
       </h1>
       {/* server error */}
-      <p className="text center w-[90%] max-w-[500px] rounded-sm bg-primary/20 py-2 text-sm text-primary/80 ">
-        Error from server
-      </p>
+
+      {serverError !== "" && <p className="text center w-[90%] max-w-[500px] rounded-sm bg-primary/20 py-2 text-sm text-primary/80 ">
+        {serverError}
+      </p>}
+      {serverSuccess !== "" && <p className="text center w-[90%] max-w-[500px] rounded-sm bg-green-200 py-2 text-sm text-green-500 ">
+        {serverSuccess}
+      </p>}
       <form
         className="flex w-full max-w-[500px] flex-col p-2 first:overflow-hidden"
         encType="multipart/form-data"
@@ -176,6 +190,7 @@ const ProductForm = (props) => {
             type="file"
             name="image"
             accept="image/*"
+            onChange={(e) => setFieldValue("image", e.target.files[0])}
           />
         </div>
         <button className="form-btn" type="submit">

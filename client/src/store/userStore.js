@@ -31,6 +31,7 @@ const userStore = (set) => ({
       }
     } catch (error) {
       console.error(error.response);
+      set({isLoading: false})
     }
   },
 });

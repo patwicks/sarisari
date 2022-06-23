@@ -12,7 +12,7 @@ const AppLayout = ({ children }) => {
 
   return (
     <>
-      {isLoading === true || isLogin === false ? (
+      {isLoading === true && isLogin === false ? (
         <div className="center h-screen w-screen">
           <Loader />
         </div>

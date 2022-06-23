@@ -19,7 +19,7 @@ const SigninPage = () => {
     setTimeout(() => {
       loginUser(values);
       navigate("/");
-      // actions.resetForm();
+      actions.resetForm();
     }, 2000);
   };
 
