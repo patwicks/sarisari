@@ -5,13 +5,15 @@ import Product from "../components/product/Product";
 import AppLayout from "./AppLayout";
 //store
 import useProductStore from "../store/productStore";
+import useUserStore from "../store/userStore";
 
 const ProductPage = () => {
-  const fetchAllProducts = useProductStore((state) => state.fetchAllProducts);
+  const { fetchAllProducts } = useProductStore((state) => state);
+  const user = useUserStore((state) => state.user);
 
   React.useEffect(() => {
-    fetchAllProducts();
-  }, [fetchAllProducts]);
+    fetchAllProducts(user?._id);
+  }, [fetchAllProducts, user]);
 
   return (
     <AppLayout>

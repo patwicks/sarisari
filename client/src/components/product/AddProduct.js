@@ -4,9 +4,11 @@ import ProductForm from "./ProductForm";
 import formProductValidation from "./formProductValidation";
 // product store
 import useProductStore from "../../store/productStore";
+import useUserStore from "../../store/userStore";
 
 const AddProduct = () => {
   const addNewProduct = useProductStore((state) => state.addNewProduct);
+  const user = useUserStore((state) => state.user);
 
   const onSubmit = (values, action) => {
     const data = new FormData();
@@ -18,7 +20,7 @@ const AddProduct = () => {
     data.append("price", values.price);
     data.append("image", values.image);
 
-    addNewProduct(data);
+    addNewProduct(user?._id, data);
   };
   const {
     values,

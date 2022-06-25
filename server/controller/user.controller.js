@@ -190,4 +190,4 @@ exports.UPDATE_PROFILE_PIC = async (req, res) => {
   }
 }; //update profile profile picture
 
-//change password
+

@@ -10,9 +10,9 @@ const productStore = (set) => ({
   //main
   product: [],
 
-  fetchAllProducts: async () => {
+  fetchAllProducts: async (userID) => {
     try {
-      const res = await API.get("/product/all");
+      const res = await API.get(`/product/item/populate/${userID}`);
       if (res.data) {
         set({ product: res.data });
         // console.log(res.data);
@@ -22,9 +22,9 @@ const productStore = (set) => ({
     }
   },
 
-  addNewProduct: async (data) => {
+  addNewProduct: async (userID, data) => {
     try {
-      const res = await API.post("/product/add/new", data);
+      const res = await API.post(`/product/add/new/${userID}`, data);
       set({ isLoading: true });
       if (res.data) {
         // console.log(res.data);

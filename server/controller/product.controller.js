@@ -1,24 +1,27 @@
 const Product = require("../model/product.model"); // PRODUCT mongoose model
+const User = require("../model/user.model"); //User mongoose model
 const { productReqValidator } = require("../validation/product.validation"); // joi validator - request data (PRODUCT)
 const cloudinary = require("../utils/cloudinary.utils"); //Cloudinary config
 
-exports.FETCH_ALL_PRODUCTS = async (req, res) => {
+exports.POPULATE_ITEM = async (req, res) => {
   try {
-    const products = await Product.find();
-    if (!products) {
+    const { userID } = req.params;
+    //items = product list
+    const items = await User.findById(userID).populate("item");
+    if (!items) {
       return res
         .status(400)
-        .json({ errorMessage: "Failed to fetch product data!" });
+        .json({ errorMessage: "Failed to fetch product items!" });
     } else {
-      return res.status(200).json(products);
+      return res.status(200).json(items.item);
     }
   } catch (error) {
-    console.error(error); //debugging only
     return res.status(500).json({
-      errorMessage: "Something went wrong while fetching product data!",
+      errorMessage:
+        "Something went wrong while getting data, please try again!",
     });
   }
-}; //FETCH ALL PRODUCTS FROM DATABASE
+}; //POPULAT THE PRODUCT LSIT ITEM
 
 exports.FETCH_ONE_PRODOCT = async (req, res) => {
   try {
@@ -33,16 +36,22 @@ exports.FETCH_ONE_PRODOCT = async (req, res) => {
       errorMessage: "Something went wrong while fetching data, try again!",
     });
   }
-};
+}; //FETCH SINGLE PRODUCT
 
 exports.ADD_PRODUCT = async (req, res) => {
   try {
-    const { item_code, image, name, category, stock, status, price } = req.body;
+    const { item_code, name, category, stock, status, price } = req.body;
     const { error } = productReqValidator(req.body);
+    const { userID } = req.params;
 
-    const isProductExist = await Product.findOne({ item_code });
+    const { item } = await User.findById(userID).populate("item");
+
+    const filteredItem = item.filter(
+      (product) => product.item_code === item_code
+    );
+  
     //return if product is existing
-    if (isProductExist)
+    if (filteredItem.length !== 0)
       return res
         .status(400)
         .json({ errorMessage: "Product is already existing!" });
@@ -68,16 +77,26 @@ exports.ADD_PRODUCT = async (req, res) => {
         price,
       });
 
-      const saveNewProduct = await newProduct.save();
+      const { _id: productID } = await newProduct.save();
 
-      if (!saveNewProduct) {
+      if (!productID) {
         return res
           .status(400)
           .json({ errorMessage: "Failed to add new product!" });
       } else {
-        return res
-          .status(200)
-          .json({ successMessage: "Successfully added a new product!" });
+        //push the id to user ITEM list
+        const pushToItem = await User.findByIdAndUpdate(userID, {
+          $push: { item: productID },
+        });
+        if (!pushToItem) {
+          return res
+            .status(400)
+            .json({ errorMessage: "Failed to add new product!" });
+        } else {
+          return res
+            .status(200)
+            .json({ successMessage: "Successfully added a new product!" });
+        }
       }
     }
   } catch (error) {
@@ -120,6 +139,38 @@ exports.UPDATE_PRODUCT = async (req, res) => {
   }
 }; // UPDATE A SINGLE PRODUCT - IMAGE EXCLUDED TO UPDATE - NOT FORM DATA
 
+//UPDATE MULTIPLE STOCK AFTER CHECKOUT
+exports.UPDATE_PRODUCTS_STOCK = async (req, res) => {
+  try {
+    //need an array req body
+    const purchaseProducts = req.body;
+    if (purchaseProducts === null) {
+      return res
+        .status(400)
+        .json({ errorMessage: "Please purchase a product first!" });
+    } else {
+      purchaseProducts.forEach(async (product) => {
+        const updateStock = await Product.findByIdAndUpdate(
+          { _id: product.id },
+          { stock: product.newStock }
+        );
+        updateStock.save();
+      });
+
+      return res
+        .status(200)
+        .json({ successMessage: "Transaction successfull!" });
+    }
+  } catch (error) {
+    console.error(error); //for deubbuging only
+    return res.status(400).json({
+      errorMessage:
+        "Something went went wrong while checking out the transaction!",
+    });
+  }
+};
+
+//These are all in update
 exports.DELETE_PRODUCT = async (req, res) => {
   try {
     const { productID } = req.params;
@@ -175,34 +226,3 @@ exports.SEARCH_PRODUCT = async (req, res) => {
     });
   }
 }; // SEARCH QUERY FOR PRODUCT - BY NAME - BY ITEM CODE
-
-//UPDATE MULTIPLE STOCK AFTER CHECKOUT
-exports.UPDATE_PRODUCTS_STOCK = async (req, res) => {
-  try {
-    //need an array req body
-    const purchaseProducts = req.body;
-    if (purchaseProducts === null) {
-      return res
-        .status(400)
-        .json({ errorMessage: "Please purchase a product first!" });
-    } else {
-      purchaseProducts.forEach(async (product) => {
-        const updateStock = await Product.findByIdAndUpdate(
-          { _id: product.id },
-          { stock: product.newStock }
-        );
-        updateStock.save();
-      });
-
-      return res
-        .status(200)
-        .json({ successMessage: "Transaction successfull!" });
-    }
-  } catch (error) {
-    console.error(error); //for deubbuging only
-    return res.status(400).json({
-      errorMessage:
-        "Something went went wrong while checking out the transaction!",
-    });
-  }
-};
