@@ -13,6 +13,8 @@ const SignupForm = (props) => {
     touched,
     errors,
     isSubmitting,
+    serverErrorCreate,
+    serverSuccessCreate,
   } = props;
   return (
     <div className="center mt-10 w-full flex-col sm:w-4/5 md:w-[450px]">
@@ -30,6 +32,24 @@ const SignupForm = (props) => {
         Track, monitor, and record your daily sales
       </p>
       <div className="my-5 w-4/5 border md:w-full"></div>
+      {/* Response Messages */}
+      {serverErrorCreate !== "" && (
+        <p className="w-full max-w-[450px] rounded-sm bg-red-100 py-2 text-center text-sm text-red-500">
+          {serverErrorCreate}
+        </p>
+      )}
+      {serverSuccessCreate !== "" && (
+        <p className="w-full rounded-sm bg-green-200 py-2 text-center text-sm text-green-500">
+          {serverSuccessCreate}
+          <Link
+            className="hover: ml-1 cursor-pointer text-blacky  underline decoration-solid opacity-80"
+            to="/signin"
+          >
+            Login now!
+          </Link>
+        </p>
+      )}
+
       {/* Form header End / Form body Start */}
       <form className="w-full" autoComplete="off" onSubmit={handleSubmit}>
         <input

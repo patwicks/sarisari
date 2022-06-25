@@ -8,6 +8,7 @@ import CheckOutPage from "./pages/CheckOutPage";
 import SigninPage from "./pages/SigninPage";
 import SignupPage from "./pages/SignupPage";
 import AddProductPage from "./pages/AddProductPage";
+import EditProductPage from "./pages/EditProductPage";
 // const
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/products" element={<ProductPage />} />
         <Route path="/checkout" element={<CheckOutPage />} />
         <Route path="/products/add" element={<AddProductPage />} />
+        <Route path="/products/edit/:productID" element={<EditProductPage />} />
       </Routes>
     </BrowserRouter>
   );

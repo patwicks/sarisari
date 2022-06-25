@@ -1,13 +1,22 @@
 import React from "react";
 import { useFormik } from "formik";
+//local imports
 import { signupValueValidator } from "../components/auth/validator/formValidator";
-
 import SignupForm from "../components/auth/form/SignupForm";
+import useUserStore from "../store/userStore"; //zustand store
 
 const SignupPage = () => {
+  const { serverErrorCreate, serverSuccessCreate, createUser } = useUserStore((state) => state);
   //formik
   const onSubmit = (values, actions) => {
-    console.log(values);
+    setTimeout(() => {
+      createUser({
+        username: values.username,
+        password: values.password,
+        profile: values.profile,
+      });
+      actions.setSubmitting(false);
+    }, 2000);
   };
   const {
     values,
@@ -22,6 +31,8 @@ const SignupPage = () => {
       username: "",
       password: "",
       confirmPassword: "",
+      profile:
+        "https://res.cloudinary.com/dxcbmlxoe/image/upload/v1656124600/profile/default_fhcjxw.jpg",
     },
     validationSchema: signupValueValidator,
     onSubmit,
@@ -36,6 +47,8 @@ const SignupPage = () => {
         handleSubmit={handleSubmit}
         errors={errors}
         isSubmitting={isSubmitting}
+        serverErrorCreate={serverErrorCreate}
+        serverSuccessCreate={serverSuccessCreate}
       />
     </div>
   );

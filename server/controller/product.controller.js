@@ -20,6 +20,21 @@ exports.FETCH_ALL_PRODUCTS = async (req, res) => {
   }
 }; //FETCH ALL PRODUCTS FROM DATABASE
 
+exports.FETCH_ONE_PRODOCT = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.productID);
+    if (!product) {
+      return res.status(400).json({ errorMessage: "Product is not found!" });
+    } else {
+      return res.status(200).json(product);
+    }
+  } catch (error) {
+    return res.status(500).json({
+      errorMessage: "Something went wrong while fetching data, try again!",
+    });
+  }
+};
+
 exports.ADD_PRODUCT = async (req, res) => {
   try {
     const { item_code, image, name, category, stock, status, price } = req.body;

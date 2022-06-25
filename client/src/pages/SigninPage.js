@@ -1,25 +1,25 @@
 import React from "react";
+import {useNavigate} from "react-router-dom"
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
 //local imports
 import SigninForm from "../components/auth/form/SigninForm";
 import { signinValueValidator } from "../components/auth/validator/formValidator";
 import useUserStore from "../store/userStore";
 
 const SigninPage = () => {
-  let navigate = useNavigate();
-  const { loginUser } = useUserStore((state) => ({
-    loginUser: state.loginUser,
-    autoLoginUser: state.autoLoginUser,
-    isLogin: state.isLogin,
-  }));
+  let navigateTo = useNavigate()
+  //user states
+  const { loginUser, serverError } = useUserStore((state) => state);
 
   //formik
   const onSubmit = (values, actions) => {
     setTimeout(() => {
       loginUser(values);
-      navigate("/");
-      actions.resetForm();
+      actions.setSubmitting(false);
+      if(serverError === "") {
+        actions.resetForm();
+        navigateTo("/")
+      }
     }, 2000);
   };
 
@@ -49,6 +49,7 @@ const SigninPage = () => {
         handleSubmit={handleSubmit}
         errors={errors}
         isSubmitting={isSubmitting}
+        serverError={serverError}
       />
     </div>
   );

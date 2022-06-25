@@ -1,8 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 //store
 import useProductStore from "../../store/productStore";
 
 const ProductTable = () => {
+  let navigateTo = useNavigate()
   const product = useProductStore((state) => state.product);
 
   return (
@@ -10,7 +12,7 @@ const ProductTable = () => {
       <table className="mt-2 w-full border-collapse">
         <thead>
           <tr className="border text-left">
-            <th className="p-2 font-semibold">Item code</th>
+            <th className="hidden p-2 font-semibold md:block">Item code</th>
             <th className="p-2 font-semibold">Image</th>
             <th className="p-2 font-semibold">Name</th>
             <th className="p-2 font-semibold">Stock</th>
@@ -20,9 +22,9 @@ const ProductTable = () => {
           </tr>
         </thead>
         <tbody>
-          {product?.map((item) => (
+          {product?.map((item, index) => (
             <tr className="border" key={item._id}>
-              <td className="p-2">{item.item_code}</td>
+              <td className="hidden p-2 md:block">{item.item_code}</td>
               <td className="p-2">
                 <div className="center h-8 w-8 overflow-hidden rounded-full border">
                   <img
@@ -42,7 +44,10 @@ const ProductTable = () => {
               </td>
               <td className="p-2">₱ {item.price}</td>
               <td className="p-2">
-                <button className="cursor-pointer border-none text-sm uppercase text-blue-400 outline-none hover:text-blacky">
+                <button
+                  className="cursor-pointer border-none text-sm uppercase text-blue-400 outline-none hover:text-blacky"
+                  onClick={() => navigateTo(`/products/edit/${item._id}`)}
+                >
                   edit
                 </button>
               </td>

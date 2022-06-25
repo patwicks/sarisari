@@ -15,7 +15,7 @@ const productStore = (set) => ({
       const res = await API.get("/product/all");
       if (res.data) {
         set({ product: res.data });
-        console.log(res.data);
+        // console.log(res.data);
       }
     } catch (error) {
       set({ serverError: error.response.data.errorMessage });
@@ -27,11 +27,13 @@ const productStore = (set) => ({
       const res = await API.post("/product/add/new", data);
       set({ isLoading: true });
       if (res.data) {
+        // console.log(res.data);
         set({ serverSuccess: res.data.successMessage });
         set({ isLoading: false });
         set({ serverError: "" });
       }
     } catch (error) {
+      // console.log(error.response);
       set({ serverError: error.response.data.errorMessage });
       set({ isLoading: false });
     }

@@ -12,6 +12,7 @@ const SigninForm = (props) => {
     touched,
     errors,
     isSubmitting,
+    serverError
   } = props;
   return (
     <div className="center mt-10 w-full flex-col sm:w-4/5 md:w-[450px]">
@@ -29,6 +30,7 @@ const SigninForm = (props) => {
         Track, monitor, and record your daily sales
       </p>
       <div className="my-5 w-4/5 border md:w-full"></div>
+      {serverError !== "" && <p className="w-full text-center text-sm py-2 rounded-sm bg-red-100 text-red-500 max-w-[450px]">{serverError}</p>}
       {/* Form header End / Form body Start */}
       <form className="w-full" autoComplete="off" onSubmit={handleSubmit}>
         <input
