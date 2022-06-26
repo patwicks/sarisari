@@ -1,11 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-//store
-import useProductStore from "../../store/productStore";
 
-const ProductTable = () => {
+const ProductTable = ({currentItems}) => {
   let navigateTo = useNavigate()
-  const product = useProductStore((state) => state.product);
+
 
   return (
     <div className="w-full min-w-[288px] overflow-y-scroll">
@@ -22,7 +20,7 @@ const ProductTable = () => {
           </tr>
         </thead>
         <tbody>
-          {product?.map((item, index) => (
+          {currentItems?.map((item, index) => (
             <tr className="border" key={item._id}>
               <td className="hidden p-2 md:block">{item.item_code}</td>
               <td className="p-2">

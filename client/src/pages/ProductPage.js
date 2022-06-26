@@ -17,7 +17,7 @@ const ProductPage = () => {
 
   return (
     <AppLayout>
-      <Product />
+      <Product itemsPerPage={1} />
     </AppLayout>
   );
 };
