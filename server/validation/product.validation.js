@@ -7,8 +7,8 @@ exports.productReqValidator = (data) => {
     name: Joi.string().min(2).max(255).required(),
     stock: Joi.number().required(),
     category: Joi.string().required(),
-    status: Joi.string().required(),
-    price: Joi.number().required(),
+    purchasePrice: Joi.number().min(1).required(),
+    sellPrice: Joi.number().min(1).required(),
   });
 
   return schema.validate(data);

@@ -40,7 +40,7 @@ const userStore = (set) => ({
         set({ user: res.data.user });
       }
     } catch (error) {
-      console.error(error.response);
+      set({ serverError: "Login token has expired!" });
     }
   },
   //register a user

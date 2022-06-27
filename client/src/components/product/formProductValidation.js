@@ -9,8 +9,11 @@ const formProductValidation = new Yup.object().shape({
     .min(5, "Product name is too short")
     .required("Product name is required"),
   category: Yup.string().required("Choose a category"),
-  status: Yup.string().required("Status is required"),
+  purchasePrice: Yup.number().min(1).required("Purchased price is required"),
   stock: Yup.number().positive().min(1).required(),
-  price: Yup.number().positive().min(1).required(),
+  sellPrice: Yup.number()
+    .positive()
+    .min(1)
+    .required("Selling Price is required!"),
 });
 export default formProductValidation;

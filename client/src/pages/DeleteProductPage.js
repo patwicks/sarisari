@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 //local imports
-import API from "../api/Api";
-import EditProduct from "../components/product/edit/EditProduct";
+import DeleteProduct from "../components/product/delete/DeleteProduct";
 import AppLayout from "./AppLayout";
+import API from "../api/Api";
 
-const EditProductPage = () => {
+//store
+
+const DeleteProductPage = () => {
   const { productID } = useParams();
-  const [productData, setProductData] = React.useState({});
+  const [productData, setProductData] = useState({});
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchSingleProduct = async () => {
       try {
         const res = await API.get(`/product/${productID}`);
@@ -20,12 +22,11 @@ const EditProductPage = () => {
     };
     fetchSingleProduct();
   }, [productID]);
-
   return (
     <AppLayout>
-      <EditProduct productData={productData} />
+      <DeleteProduct productData={productData} />
     </AppLayout>
   );
 };
 
-export default EditProductPage;
+export default DeleteProductPage;

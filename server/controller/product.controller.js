@@ -40,7 +40,8 @@ exports.FETCH_ONE_PRODOCT = async (req, res) => {
 
 exports.ADD_PRODUCT = async (req, res) => {
   try {
-    const { item_code, name, category, stock, status, price } = req.body;
+    const { item_code, name, category, stock, purchasePrice, sellPrice } =
+      req.body;
     const { error } = productReqValidator(req.body);
     const { userID } = req.params;
 
@@ -49,7 +50,7 @@ exports.ADD_PRODUCT = async (req, res) => {
     const filteredItem = item.filter(
       (product) => product.item_code === item_code
     );
-  
+
     //return if product is existing
     if (filteredItem.length !== 0)
       return res
@@ -73,8 +74,8 @@ exports.ADD_PRODUCT = async (req, res) => {
         name,
         stock,
         category,
-        status,
-        price,
+        purchasePrice,
+        sellPrice,
       });
 
       const { _id: productID } = await newProduct.save();

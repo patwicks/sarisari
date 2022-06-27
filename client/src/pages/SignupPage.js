@@ -6,7 +6,9 @@ import SignupForm from "../components/auth/form/SignupForm";
 import useUserStore from "../store/userStore"; //zustand store
 
 const SignupPage = () => {
-  const { serverErrorCreate, serverSuccessCreate, createUser } = useUserStore((state) => state);
+  const { serverErrorCreate, serverSuccessCreate, createUser } = useUserStore(
+    (state) => state
+  );
   //formik
   const onSubmit = (values, actions) => {
     setTimeout(() => {
@@ -16,6 +18,9 @@ const SignupPage = () => {
         profile: values.profile,
       });
       actions.setSubmitting(false);
+      if (serverErrorCreate === "") {
+        actions.resetForm();
+      }
     }, 2000);
   };
   const {

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 // icons
 import { MdArrowBackIos } from "react-icons/md";
 // store
-import useProductStore from "../../store/productStore";
+import useProductStore from "../../../store/productStore";
 
 const ProductForm = (props) => {
   let navigateTo = useNavigate();
@@ -17,6 +17,7 @@ const ProductForm = (props) => {
     handleSubmit,
     setFieldValue,
     categoryList,
+    isSubmitting,
   } = props;
 
   return (
@@ -35,14 +36,14 @@ const ProductForm = (props) => {
       </h1>
       {/* server error */}
 
-      {serverError !== "" && (
+      {serverError.action === "add" && serverError.text !== "" && (
         <p className="w-[90%] max-w-[1000px] rounded-sm bg-primary/20 py-2 text-center text-sm text-primary/80 ">
-          {serverError}
+          {serverError.text}
         </p>
       )}
-      {serverSuccess !== "" && (
+      {serverSuccess.action === "add" && serverSuccess.text !== "" && (
         <p className="w-[90%] max-w-[1000px] rounded-sm bg-green-200 py-2 text-center text-sm text-green-500 ">
-          {serverSuccess}
+          {serverSuccess.text}
         </p>
       )}
       <form
@@ -112,25 +113,25 @@ const ProductForm = (props) => {
             <p className="text-[0.8rem] text-primary/80">{errors.category}</p>
           )}
         </div>
-        {/* status */}
+        {/* purchasePrice */}
         <div className="mt-3 flex w-full flex-col">
-          <label className="text-[0.7rem]  uppercase" htmlFor="status">
-            Status:
+          <label className="text-[0.7rem]  uppercase" htmlFor="purchasePrice">
+            Purchased price:
           </label>
           <input
             className="rounded-sm border-[0.05rem] px-4 py-1 outline-1 outline-primary/60"
-            type="text"
-            name="status"
-            placeholder="In stock"
-            readOnly
-            disabled
-            value={values.status}
+            type="number"
+            name="purchasePrice"
+            placeholder="Purchased price"
+            value={values.purchasePrice}
             onChange={handleChange}
             onBlur={handleBlur}
           />
           {/* form error */}
-          {errors.status && touched.status && (
-            <p className="text-[0.8rem] text-primary/80">{errors.status}</p>
+          {errors.purchasePrice && touched.purchasePrice && (
+            <p className="text-[0.8rem] text-primary/80">
+              {errors.purchasePrice}
+            </p>
           )}
         </div>
         {/* Stock */}
@@ -152,23 +153,23 @@ const ProductForm = (props) => {
             <p className="text-[0.8rem] text-primary/80">{errors.stock}</p>
           )}
         </div>
-        {/* price */}
+        {/* selling price */}
         <div className="mt-3 flex w-full flex-col">
           <label className="text-[0.7rem]  uppercase" htmlFor="stock">
-            Stock count:
+            Selling price:
           </label>
           <input
             className="rounded-sm border-[0.05rem] px-4 py-1 outline-1 outline-primary/60"
             type="number"
-            name="price"
-            placeholder="Enter price"
-            value={values.price}
+            name="sellPrice"
+            placeholder="Enter selling price"
+            value={values.sellPrice}
             onChange={handleChange}
             onBlur={handleBlur}
           />
           {/* form error */}
-          {errors.price && touched.price && (
-            <p className="text-[0.8rem] text-primary/80">{errors.price}</p>
+          {errors.sellPrice && touched.sellPrice && (
+            <p className="text-[0.8rem] text-primary/80">{errors.sellPrice}</p>
           )}
         </div>
 
@@ -186,8 +187,8 @@ const ProductForm = (props) => {
             onChange={(e) => setFieldValue("image", e.target.files[0])}
           />
         </div>
-        <button className="form-btn" type="submit">
-          Submit
+        <button disabled={isSubmitting} className="form-btn" type="submit">
+          {isSubmitting ? "adding new product..." : "submit"}
         </button>
       </form>
     </div>

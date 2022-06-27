@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ProductTable from "./ProductTable";
+import ProductList from "./ProductList";
 //store
 import useProductStore from "../../store/productStore";
 //test paginate
 import ReactPaginate from "react-paginate";
 
-const Product = ({ itemsPerPage }) => {
+const Product = ({ itemsPerPage, serverError }) => {
   let navigateTo = useNavigate();
   const product = useProductStore((state) => state.product);
   //test code paginate start
@@ -20,7 +20,6 @@ const Product = ({ itemsPerPage }) => {
   useEffect(() => {
     // Fetch items from another resources.
     const endOffset = itemOffset + itemsPerPage;
-    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     setCurrentItems(product.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(product.length / itemsPerPage));
   }, [itemOffset, itemsPerPage, product]);
@@ -28,14 +27,11 @@ const Product = ({ itemsPerPage }) => {
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % product.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
     setItemOffset(newOffset);
   };
   //test code paginate end
   return (
-    <div className="w-full p-2 pt-5">
+    <div className="w-full min-w-[288px] p-2 pt-5">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold text-blacky/80">Products</h1>
         <button
@@ -55,23 +51,38 @@ const Product = ({ itemsPerPage }) => {
           name="search"
         />
       </div>
-      <ProductTable currentItems={currentItems} />
-      {/* <div className="w-full bg-primary/20 center"> */}
-      <ReactPaginate
-        className="center w-full"
-        previousLabel="previous"
-        breakLabel="..."
-        nextLabel="next"
-        pageRangeDisplayed={3}
-        pageCount={pageCount}
-        onPageChange={handlePageClick}
-        //style
-        pageClassName="hover:bg-primary text-white bg-primary/50 mx-1 w-5 h-5 rounded-sm overflow-hidden"
-        pageLinkClassName="w-full h-full center"
-        activeClassName="bg-primary"
-        activeLinkClassName="bg-primary"
-      />
-      {/* </div> */}
+      {serverError.action === "fetch" && serverError.text !== "" && (
+        <p className="mt-2 w-full rounded-sm bg-primary/20 py-2 text-center text-sm text-primary/80 ">
+          {serverError.text}
+        </p>
+      )}
+
+      {product?.length === 0 ? (
+        <p className="text-center mt-10 text-blacky/70 text-sm">No products available</p>
+      ) : (
+        <ProductList currentItems={currentItems} />
+      )}
+
+      {product?.length > 0 && (
+        <ReactPaginate
+          className="center w-full mt-5"
+          previousLabel="<"
+          breakLabel="..."
+          nextLabel=">"
+          pageRangeDisplayed={3}
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          //style
+          previousClassName="hover:bg-primary text-white bg-primary/50 mx-1 w-5 h-5 rounded-sm overflow-hidden"
+          previousLinkClassName="w-full h-full center"
+          nextClassName="hover:bg-primary text-white bg-primary/50 mx-1 w-5 h-5 rounded-sm overflow-hidden"
+          nextLinkClassName="w-full h-full center"
+          pageClassName="hover:bg-primary text-white bg-primary/50 mx-1 w-5 h-5 rounded-sm overflow-hidden"
+          pageLinkClassName="w-full h-full center"
+          activeClassName="bg-primary"
+          activeLinkClassName="bg-primary"
+        />
+      )}
     </div>
   );
 };

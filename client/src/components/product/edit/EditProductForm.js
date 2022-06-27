@@ -1,9 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { MdArrowBackIos } from "react-icons/md";
+import useProductStore from "../../../store/productStore";
 
 const EditProductForm = (props) => {
   let navigateTo = useNavigate();
+  const { serverError, serverSuccess } = useProductStore((state) => state);
   const {
     categoryList,
     values,
@@ -13,6 +15,7 @@ const EditProductForm = (props) => {
     errors,
     touched,
     isSubmitting,
+    image,
   } = props;
 
   return (
@@ -29,7 +32,28 @@ const EditProductForm = (props) => {
       <h1 className=" w-full py-5 px-2 text-lg text-blacky/60">
         Product Information:
       </h1>
+      {/* image */}
+      {image && (
+        <div className="center mb-2 h-16 w-16  overflow-hidden rounded-full border-2 border-blue-300">
+          <img
+            className="h-full w-full object-cover object-center"
+            src={image[0].url}
+            alt="imageProduct"
+          />
+        </div>
+      )}
+      {/* server error */}
 
+      {serverError.action === "edit" && serverError.text !== "" && (
+        <p className="w-[90%] max-w-[1000px] rounded-sm bg-primary/20 py-2 text-center text-sm text-primary/80 ">
+          {serverError.text}
+        </p>
+      )}
+      {serverSuccess.action === "edit" && serverSuccess.text !== "" && (
+        <p className="w-[90%] max-w-[1000px] rounded-sm bg-green-200 py-2 text-center text-sm text-green-500 ">
+          {serverSuccess.text}
+        </p>
+      )}
       <form
         className="flex w-full max-w-[1000px] flex-col p-2 first:overflow-hidden"
         encType="multipart/form-data"
@@ -44,6 +68,8 @@ const EditProductForm = (props) => {
             type="text"
             name="item_code"
             placeholder="ex. 000068123456"
+            disabled
+            readOnly
             value={values.item_code}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -77,12 +103,15 @@ const EditProductForm = (props) => {
             Category:
           </label>
           <select
-            className="rounded-sm border-[0.05rem] px-4 py-1 outline-1 outline-primary/60"
+            className="rounded-sm border-[0.05rem] px-4 py-1 capitalize outline-1 outline-primary/60"
             name="category"
             value={values.category}
             onChange={handleChange}
             onBlur={handleBlur}
           >
+            <option className="capitalize text-primary" value={values.category}>
+              {values.category}
+            </option>
             {categoryList?.map((list, index) => (
               <option value={list.value} key={index}>
                 {list.productCategory}
@@ -95,20 +124,22 @@ const EditProductForm = (props) => {
         </div>
         {/* status */}
         <div className="mt-3 flex w-full flex-col">
-          <label className="text-[0.7rem]  uppercase" htmlFor="status">
-            Status:
+          <label className="text-[0.7rem]  uppercase" htmlFor="purchasePrice">
+            Purchase price:
           </label>
           <input
             className="rounded-sm border-[0.05rem] px-4 py-1 outline-1 outline-primary/60"
             type="text"
-            name="status"
+            name="purchasePrice"
             placeholder="In stock"
-            value={values.status}
+            value={values.purchasePrice}
             onChange={handleChange}
             onBlur={handleBlur}
           />
-          {errors.status && touched.status && (
-            <p className="text-[0.8rem] text-primary/80">{errors.status}</p>
+          {errors.purchasePrice && touched.purchasePrice && (
+            <p className="text-[0.8rem] text-primary/80">
+              {errors.purchasePrice}
+            </p>
           )}
         </div>
         {/* Stock */}
@@ -129,39 +160,26 @@ const EditProductForm = (props) => {
             <p className="text-[0.8rem] text-primary/80">{errors.stock}</p>
           )}
         </div>
-        {/* price */}
+        {/* selling price */}
         <div className="mt-3 flex w-full flex-col">
-          <label className="text-[0.7rem]  uppercase" htmlFor="stock">
-            Stock count:
+          <label className="text-[0.7rem]  uppercase" htmlFor="sellPrice">
+            Selling price:
           </label>
           <input
             className="rounded-sm border-[0.05rem] px-4 py-1 outline-1 outline-primary/60"
             type="number"
-            name="price"
+            name="sellPrice"
             placeholder="Enter price"
-            value={values.price}
+            value={values.sellPrice}
             onChange={handleChange}
             onBlur={handleBlur}
           />
-          {errors.price && touched.price && (
-            <p className="text-[0.8rem] text-primary/80">{errors.price}</p>
+          {errors.sellPrice && touched.sellPrice && (
+            <p className="text-[0.8rem] text-primary/80">{errors.sellPrice}</p>
           )}
         </div>
-
-        {/* Image */}
-        {/* <div className="mt-3 flex w-full flex-col">
-          <label className="text-[0.7rem]  uppercase" htmlFor="image">
-            Attached Image:
-          </label>
-          <input
-            className="rounded-sm border-[0.05rem] px-4 py-1 outline-1 outline-primary/60"
-            type="file"
-            name="image"
-            accept="image/*"
-          />
-        </div> */}
-        <button className="form-btn" type="submit">
-          Submit
+        <button disabled={isSubmitting} className="form-btn" type="submit">
+          {isSubmitting ? "editing product info..." : "submit"}
         </button>
       </form>
     </div>

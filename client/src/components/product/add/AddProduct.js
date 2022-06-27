@@ -1,26 +1,29 @@
 import React from "react";
 import { useFormik } from "formik";
-import ProductForm from "./ProductForm";
-import formProductValidation from "./formProductValidation";
+import AddProductForm from "./AddProductForm";
+import formProductValidation from "../formProductValidation";
 // product store
-import useProductStore from "../../store/productStore";
-import useUserStore from "../../store/userStore";
+import useProductStore from "../../../store/productStore";
+import useUserStore from "../../../store/userStore";
 
 const AddProduct = () => {
-  const addNewProduct = useProductStore((state) => state.addNewProduct);
+  const { addNewProduct, serverError } = useProductStore((state) => state);
   const user = useUserStore((state) => state.user);
 
-  const onSubmit = (values, action) => {
+  const onSubmit = (values, actions) => {
     const data = new FormData();
     data.append("item_code", values.item_code);
     data.append("name", values.name);
     data.append("category", values.category);
-    data.append("status", values.status);
+    data.append("purchasePrice", values.purchasePrice);
     data.append("stock", values.stock);
-    data.append("price", values.price);
+    data.append("sellPrice", values.sellPrice);
     data.append("image", values.image);
 
-    addNewProduct(user?._id, data);
+    setTimeout(() => {
+      addNewProduct(user?._id, data);
+      actions.setSubmitting(false);
+    }, 2000);
   };
   const {
     values,
@@ -30,14 +33,15 @@ const AddProduct = () => {
     handleChange,
     handleSubmit,
     setFieldValue,
+    isSubmitting,
   } = useFormik({
     initialValues: {
       item_code: "",
       name: "",
       category: "",
-      status: "in stock",
-      stock: 1,
-      price: 1,
+      purchasePrice: 0,
+      stock: 0,
+      sellPrice: 0,
       image: "",
     },
     validationSchema: formProductValidation,
@@ -57,10 +61,11 @@ const AddProduct = () => {
     { productCategory: "Sugar", value: "sugar" },
   ];
   return (
-    <ProductForm
+    <AddProductForm
       values={values}
       touched={touched}
       errors={errors}
+      isSubmitting={isSubmitting}
       handleBlur={handleBlur}
       handleChange={handleChange}
       handleSubmit={handleSubmit}

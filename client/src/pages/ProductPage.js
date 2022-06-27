@@ -8,7 +8,7 @@ import useProductStore from "../store/productStore";
 import useUserStore from "../store/userStore";
 
 const ProductPage = () => {
-  const { fetchAllProducts } = useProductStore((state) => state);
+  const { fetchAllProducts, serverError} = useProductStore((state) => state);
   const user = useUserStore((state) => state.user);
 
   React.useEffect(() => {
@@ -17,7 +17,7 @@ const ProductPage = () => {
 
   return (
     <AppLayout>
-      <Product itemsPerPage={1} />
+      <Product itemsPerPage={10} serverError={serverError} />
     </AppLayout>
   );
 };

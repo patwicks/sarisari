@@ -3,8 +3,8 @@ import API from "../api/Api";
 
 const productStore = (set) => ({
   // response messages
-  serverError: "",
-  serverSuccess: "",
+  serverError: {},
+  serverSuccess: {},
   // state
   isLoading: false,
   //main
@@ -15,27 +15,59 @@ const productStore = (set) => ({
       const res = await API.get(`/product/item/populate/${userID}`);
       if (res.data) {
         set({ product: res.data });
-        // console.log(res.data);
+        set({
+          serverError: {
+            action: "fetch",
+            text: "",
+          },
+        });
       }
     } catch (error) {
-      set({ serverError: error.response.data.errorMessage });
+      set({
+        serverError: {
+          action: "fetch",
+          text: error.response.data.errorMessage,
+        },
+      });
     }
   },
-
+  // ADD NEW PRODUCT
   addNewProduct: async (userID, data) => {
     try {
       const res = await API.post(`/product/add/new/${userID}`, data);
       set({ isLoading: true });
       if (res.data) {
-        // console.log(res.data);
-        set({ serverSuccess: res.data.successMessage });
+        set({
+          serverSuccess: { action: "add", text: res.data.successMessage },
+        });
         set({ isLoading: false });
-        set({ serverError: "" });
+        set({ serverError: { action: "add", text: "" } });
       }
     } catch (error) {
-      // console.log(error.response);
-      set({ serverError: error.response.data.errorMessage });
+      set({
+        serverError: { action: "add", text: error.response.data.errorMessage },
+      });
+      set({
+        serverSuccess: { action: "add", text: "" },
+      });
       set({ isLoading: false });
+    }
+  },
+  //EDIT A PRODUCT
+  editProduct: async (productID, data) => {
+    try {
+      const res = await API.patch(`/product/update/${productID}`, data);
+      if (res.data) {
+        set({
+          serverSuccess: { action: "edit", text: res.data.successMessage },
+        });
+        set({ serverError: { action: "edit", text: "" } });
+      }
+    } catch (error) {
+      set({ serverSuccess: { action: "edit", text: "" } });
+      set({
+        serverError: { action: "edit", text: error.response.data.errorMessage },
+      });
     }
   },
 });

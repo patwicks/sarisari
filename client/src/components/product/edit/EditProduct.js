@@ -2,14 +2,27 @@ import React from "react";
 import { useFormik } from "formik";
 //local imports
 import EditProductForm from "./EditProductForm";
-import formProductValidation from "./formProductValidation";
+import formProductValidation from "../formProductValidation";
+// store
+import useProductStore from "../../../store/productStore";
 
 const EditProduct = ({ productData }) => {
-  const { item_code, name, category, status, stock, price } = productData;
-
+  const {
+    item_code,
+    name,
+    category,
+    purchasePrice,
+    stock,
+    sellPrice,
+    image,
+    _id: productID,
+  } = productData;
+  const { editProduct } = useProductStore((state) => state);
   const onSubmit = (values, actions) => {
-    console.log(values);
-    actions.setSubmitting(false);
+    setTimeout(() => {
+      editProduct(productID, values);
+      actions.setSubmitting(false);
+    }, 2000);
   };
 
   const {
@@ -26,9 +39,9 @@ const EditProduct = ({ productData }) => {
       item_code: item_code ? item_code : "",
       name: name ? name : "",
       category: category ? category : "",
-      status: status ? status : "",
+      purchasePrice: purchasePrice ? purchasePrice : "",
       stock: stock ? stock : 0,
-      price: price ? price : 0,
+      sellPrice: sellPrice ? sellPrice : 0,
     },
     validationSchema: formProductValidation,
     onSubmit,
@@ -57,6 +70,7 @@ const EditProduct = ({ productData }) => {
       touched={touched}
       errors={errors}
       isSubmitting={isSubmitting}
+      image={image}
     />
   );
 };

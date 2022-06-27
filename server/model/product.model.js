@@ -21,11 +21,11 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  status: {
-    type: String,
+  purchasePrice: {
+    type: Number,
     required: true,
   },
-  price: {
+  sellPrice: {
     type: Number,
     required: true,
   },
