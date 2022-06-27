@@ -19,6 +19,7 @@ app.use(
     credentials: true,
   })
 );
+
 // app used routes
 app.use("/api/user", userRoutes);
 app.use("/api/product", productRoutes);

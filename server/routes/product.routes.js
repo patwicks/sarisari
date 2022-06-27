@@ -14,7 +14,7 @@ router.get("/item/populate/:userID", POPULATE_ITEM);
 router.get("/:productID", FETCH_ONE_PRODOCT);
 router.post("/add/new/:userID", HANDLE_SINGLE_IMG_UPLOAD, ADD_PRODUCT);
 router.patch("/update/:productID", UPDATE_PRODUCT);
-router.delete("/delete/:productID", DELETE_PRODUCT);
+router.delete("/delete/:productID/:userID", DELETE_PRODUCT);
 //search
 router.get("/search", SEARCH_PRODUCT);
 router.patch("/stock/new", UPDATE_PRODUCTS_STOCK);

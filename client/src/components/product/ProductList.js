@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const ProductTable = ({ currentItems }) => {
@@ -75,7 +75,7 @@ const ProductTable = ({ currentItems }) => {
       <div className="flex w-full min-w-[288px] flex-col overflow-y-scroll md:hidden">
         {currentItems?.map((item) => (
           // <div className="flex w-full bg-red-500">
-          <div className="h-18 flex w-full border-b-[1px] p-2" key={item._id}>
+          <div className="flex w-full border-b-[1px] p-2" key={item._id}>
             <div className="w-[10%]">
               <div className="h-7 w-7 overflow-hidden rounded-full border-[1px] border-black/80 bg-primary/80">
                 <img
@@ -90,20 +90,28 @@ const ProductTable = ({ currentItems }) => {
               <p className="truncate pl-2 text-sm font-semibold capitalize text-blacky/90">
                 {item.name}
               </p>
-              <p className="pl-2 text-[0.7rem]">₱ {item.sellPrice}</p>
-              <button className="w-20 rounded-sm bg-primary/80 text-[0.7rem] text-white hover:opacity-80">
-                details
-              </button>
-              {item.stock > 10 && (
-                <p className="absolute right-0 bottom-0 rounded-md text-[0.6rem] text-green-500">
+              {item.stock > 10 ? (
+                <p className="pl-2 text-[0.8rem] capitalize text-green-600">
                   in stock
                 </p>
+              ) : (
+                <p className="pl-2 text-[0.8rem] capitalize text-red-600">out of stock</p>
               )}
-              {item.stock < 10 && (
-                <p className="absolute right-0 bottom-0 rounded-md text-[0.6rem] text-red-500">
-                  out of stock
-                </p>
-              )}
+              <p className="pl-2 text-[0.7rem]">₱ {item.sellPrice}</p>
+              <div className="absolute right-0 bottom-0 flex gap-x-2">
+                <button
+                  className=" w-14 rounded-sm bg-blue-400 text-[0.6rem] text-white hover:opacity-80 "
+                  onClick={() => navigateTo(`/products/edit/${item._id}`)}
+                >
+                  Edit
+                </button>
+                <button
+                  className=" w-14 rounded-sm bg-primary/80 text-[0.6rem] text-white hover:opacity-80 "
+                  onClick={() => navigateTo(`/products/delete/${item._id}`)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
           // </div>

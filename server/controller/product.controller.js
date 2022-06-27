@@ -50,7 +50,6 @@ exports.ADD_PRODUCT = async (req, res) => {
     const filteredItem = item.filter(
       (product) => product.item_code === item_code
     );
-
     //return if product is existing
     if (filteredItem.length !== 0)
       return res
@@ -174,15 +173,17 @@ exports.UPDATE_PRODUCTS_STOCK = async (req, res) => {
 //These are all in update
 exports.DELETE_PRODUCT = async (req, res) => {
   try {
-    const { productID } = req.params;
-    if (!productID) {
+    const { productID, userID } = req.params;
+    if (!productID && userID) {
       return res
         .status(400)
         .json({ errorMessage: "Cannot find a product to be deleted!" });
     } else {
       const productDelete = await Product.findByIdAndDelete({ _id: productID });
-
-      if (!productDelete) {
+      const pullItemToUser = await User.findByIdAndUpdate(userID, {
+        $pull: { item: productID },
+      });
+      if (!productDelete || !pullItemToUser) {
         return res
           .status(400)
           .json({ errorMessage: "Failed to delete product!" });
@@ -191,6 +192,7 @@ exports.DELETE_PRODUCT = async (req, res) => {
         const deleteImageAsset = await cloudinary.uploader.destroy(
           productDelete.image[0].public_id
         );
+
         if (deleteImageAsset) {
           return res
             .status(200)

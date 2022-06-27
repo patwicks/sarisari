@@ -70,6 +70,28 @@ const productStore = (set) => ({
       });
     }
   },
+  //DeleteProduct
+  deleteProduct: async (productID, userID) => {
+    try {
+      const res = await API.delete(`/product/delete/${productID}/${userID}`);
+      if (res.data) {
+        console.log(res.data);
+        set({
+          serverSuccess: { action: "delete", text: res.data.successMessage },
+        });
+        set({ serverError: { action: "delete", text: "" } });
+      }
+    } catch (error) {
+      console.error(error.response);
+      set({
+        serverError: {
+          action: "delete",
+          text: error.response.data.errorMessage,
+        },
+      });
+      set({ serverSuccess: { action: "delete", text: "" } });
+    }
+  },
 });
 
 const useProductStore = create(productStore);

@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdArrowBackIos } from "react-icons/md";
-// import useProductStore from "../../../store/productStore";
+import useProductStore from "../../../store/productStore";
+import useUserStore from "../../../store/userStore";
 
 const DeleteProduct = ({ productData }) => {
   let navigateTo = useNavigate();
-
+  const { serverError, serverSuccess, deleteProduct } = useProductStore(
+    (state) => state
+  );
+  const { user } = useUserStore((state) => state);
+  //local states
   const [disable, setDisable] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [productName, setProductName] = useState("");
 
   useEffect(() => {
@@ -16,6 +22,18 @@ const DeleteProduct = ({ productData }) => {
       setDisable(true);
     }
   }, [productName, productData]);
+
+  //handle submit delete
+  const handleSubmitDelete = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setTimeout(() => {
+      deleteProduct(productData?._id, user._id);
+      setDisable(true);
+      setIsSubmitting(false);
+      setProductName("");
+    }, 3000);
+  };
 
   return (
     <div className="center min-w-[288px] flex-col">
@@ -29,16 +47,28 @@ const DeleteProduct = ({ productData }) => {
         </h1>
       </div>
       <div className="mt-20 w-[90%] max-w-[500px] rounded-sm bg-whitey-200 p-2">
-        <h2 className="text-center text-sm text-blacky/80">
+        {/* server error */}
+
+        {serverError.action === "delete" && serverError.text !== "" && (
+          <p className="text w-full max-w-[1000px] rounded-sm bg-primary/20 py-2 text-center text-sm text-primary/80 ">
+            {serverError.text}
+          </p>
+        )}
+        {serverSuccess.action === "delete" && serverSuccess.text !== "" && (
+          <p className="w-full max-w-[1000px] rounded-sm bg-green-200 py-2 text-center text-sm text-green-500 ">
+            {serverSuccess.text}
+          </p>
+        )}
+        <h2 className="mt-5 text-center text-sm text-blacky/80">
           To delete this product, type it's name to confirm."
           <span className="font-bold text-blacky">{productData.name}</span> "
         </h2>
-        <form>
+        <form onSubmit={handleSubmitDelete}>
           <input
             className="form-input"
             type="text"
             name="productName"
-            placeholder={productData?.name}
+            placeholder={"Type " + productData?.name}
             value={productName}
             onChange={(e) => setProductName(e.target.value)}
           />
@@ -51,7 +81,7 @@ const DeleteProduct = ({ productData }) => {
             }
             type="submit"
           >
-            Delete
+            {isSubmitting ? "Deleting..." : "Delete"}
           </button>
         </form>
       </div>
