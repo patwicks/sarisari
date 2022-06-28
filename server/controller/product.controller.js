@@ -210,20 +210,24 @@ exports.DELETE_PRODUCT = async (req, res) => {
 
 exports.SEARCH_PRODUCT = async (req, res) => {
   try {
-    const searchProduct = await Product.find({
-      $or: [
-        { name: { $regex: req.query.name, $options: "i" } },
-        { item_code: { $regex: req.query.name, $options: "i" } },
-      ],
-    });
+    const { userID } = req.params;
+    const stringQuery = req.query.data;
+    //populate items by user
+    const { item } = await User.findById(userID).populate("item");
+    //search item from the list
+    const searchResult = item.filter(
+      (x) =>
+        x.name.toLowerCase().includes(stringQuery.toLowerCase()) ||
+        x.item_code.includes(stringQuery)
+    );
 
-    if (!searchProduct) {
+    if (!searchResult) {
       return res.status(400).json({ errorMessage: "No product is found!" });
     } else {
-      return res.status(200).json(searchProduct);
+      return res.status(200).json(searchResult);
     }
   } catch (error) {
-    console.error(error); // for debugging only
+    console.error(error.message); // for debugging only
     return res.status(500).json({
       errorMessage: "Something went wrong while searching product, try again!",
     });

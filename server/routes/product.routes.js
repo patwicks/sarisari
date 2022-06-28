@@ -16,7 +16,7 @@ router.post("/add/new/:userID", HANDLE_SINGLE_IMG_UPLOAD, ADD_PRODUCT);
 router.patch("/update/:productID", UPDATE_PRODUCT);
 router.delete("/delete/:productID/:userID", DELETE_PRODUCT);
 //search
-router.get("/search", SEARCH_PRODUCT);
+router.get("/search/:userID", SEARCH_PRODUCT);
 router.patch("/stock/new", UPDATE_PRODUCTS_STOCK);
 
 module.exports = router;

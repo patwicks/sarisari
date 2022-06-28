@@ -42,7 +42,7 @@ const ProductTable = ({ currentItems }) => {
                 <td className="p-2">₱ {item.sellPrice}</td>
                 <td className="p-2">
                   {item.stock > 10 ? (
-                    <p className="truncate rounded-sm border-[1px] border-green-200 px-1 text-center text-[0.7rem] text-green-400">
+                    <p className="truncate rounded-sm border-[1px] border-green-300 px-1 text-center text-[0.7rem] text-green-600">
                       In Stock
                     </p>
                   ) : (

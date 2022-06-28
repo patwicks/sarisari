@@ -92,6 +92,15 @@ const productStore = (set) => ({
       set({ serverSuccess: { action: "delete", text: "" } });
     }
   },
+  searchProduct: async (userID, data) => {
+    try {
+      const res = await API.get(`/product/search/${userID}?data=${data}`);
+      set({ product: res.data });
+      console.log(res.data)
+    } catch (error) {
+      console.log(error.response);
+    }
+  },
 });
 
 const useProductStore = create(productStore);

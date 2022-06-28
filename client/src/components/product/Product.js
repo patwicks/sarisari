@@ -5,6 +5,7 @@ import ProductList from "./ProductList";
 import useProductStore from "../../store/productStore";
 //test paginate
 import ReactPaginate from "react-paginate";
+import SearchProduct from "./SearchProduct";
 
 const Product = ({ itemsPerPage, serverError }) => {
   let navigateTo = useNavigate();
@@ -41,16 +42,7 @@ const Product = ({ itemsPerPage, serverError }) => {
           + Add products
         </button>
       </div>
-      <div>
-        <p className="mt-2 pb-1 text-[0.8rem] text-blacky/50">
-          Search product by name or ID:
-        </p>
-        <input
-          className="border-blacky/15 w-full rounded-full border px-5 py-1 outline-none"
-          type="text"
-          name="search"
-        />
-      </div>
+      <SearchProduct />
       {serverError.action === "fetch" && serverError.text !== "" && (
         <p className="mt-2 w-full rounded-sm bg-primary/20 py-2 text-center text-sm text-primary/80 ">
           {serverError.text}
@@ -58,14 +50,16 @@ const Product = ({ itemsPerPage, serverError }) => {
       )}
 
       {product?.length === 0 ? (
-        <p className="text-center mt-10 text-blacky/70 text-sm">No products available</p>
+        <p className="mt-10 text-center text-sm text-blacky/70">
+          No products available
+        </p>
       ) : (
         <ProductList currentItems={currentItems} />
       )}
 
       {product?.length > 0 && (
         <ReactPaginate
-          className="center w-full mt-5"
+          className="center mt-5 w-full"
           previousLabel="<"
           breakLabel="..."
           nextLabel=">"
