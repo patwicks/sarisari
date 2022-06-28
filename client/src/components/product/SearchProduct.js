@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
+import debounce from "lodash.debounce";
 //local imports
 import useProductStore from "../../store/productStore";
 import useUserStore from "../../store/userStore";
 
 const SearchProduct = () => {
-  const [search, setSearch] = useState("");
   const { searchProduct } = useProductStore((state) => state);
   const user = useUserStore((state) => state.user);
+  //trigger by onChange
 
-  const handleChange = (e) => {
-    setSearch(e.target.value);
-    searchProduct(user?._id, search);
+  const onType = (e) => {
+    let data = e.target.value;
+    const userID = user?._id;
+    return searchProduct(userID, data);
   };
+
+  const changeHandler = debounce(onType, 300);
 
   return (
     <div>
@@ -23,8 +27,7 @@ const SearchProduct = () => {
         type="text"
         name="search"
         autoComplete="false"
-        value={search}
-        onChange={handleChange}
+        onChange={changeHandler}
       />
     </div>
   );

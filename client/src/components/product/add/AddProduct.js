@@ -7,7 +7,7 @@ import useProductStore from "../../../store/productStore";
 import useUserStore from "../../../store/userStore";
 
 const AddProduct = () => {
-  const { addNewProduct, serverError } = useProductStore((state) => state);
+  const { addNewProduct } = useProductStore((state) => state);
   const user = useUserStore((state) => state.user);
 
   const onSubmit = (values, actions) => {

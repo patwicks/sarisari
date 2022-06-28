@@ -214,6 +214,7 @@ exports.SEARCH_PRODUCT = async (req, res) => {
     const stringQuery = req.query.data;
     //populate items by user
     const { item } = await User.findById(userID).populate("item");
+
     //search item from the list
     const searchResult = item.filter(
       (x) =>

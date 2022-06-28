@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 // icons
 import { FaShoppingCart } from "react-icons/fa";
 // local imports
-import ProductSearched from "./ProductSearched";
-const Main = () => {
+import MainProductList from "./MainProductList";
+const Main = ({ debounceChangeHandler }) => {
   const navigate = useNavigate();
   return (
     <div className="h-full w-full min-w-[288px] bg-whitey-100 py-2 px-2 pt-5">
@@ -16,6 +16,7 @@ const Main = () => {
           type="text"
           name="search"
           id="search"
+          onChange={debounceChangeHandler}
         />
 
         <FaShoppingCart
@@ -26,7 +27,7 @@ const Main = () => {
           0
         </p>
       </div>
-      <ProductSearched />
+      <MainProductList />
     </div>
   );
 };

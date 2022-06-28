@@ -8,12 +8,14 @@ import useProductStore from "../store/productStore";
 import useUserStore from "../store/userStore";
 
 const ProductPage = () => {
-  const { fetchAllProducts, serverError} = useProductStore((state) => state);
+  const { fetchAllProducts, serverError } = useProductStore((state) => state);
   const user = useUserStore((state) => state.user);
-
+  const userID = user?._id;
   React.useEffect(() => {
-    fetchAllProducts(user?._id);
-  }, [fetchAllProducts, user]);
+    if (userID) {
+      fetchAllProducts(userID);
+    }
+  }, [fetchAllProducts, userID]);
 
   return (
     <AppLayout>

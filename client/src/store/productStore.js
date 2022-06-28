@@ -9,6 +9,7 @@ const productStore = (set) => ({
   isLoading: false,
   //main
   product: [],
+  productLimit: [],
 
   fetchAllProducts: async (userID) => {
     try {
@@ -92,13 +93,34 @@ const productStore = (set) => ({
       set({ serverSuccess: { action: "delete", text: "" } });
     }
   },
+
+  //Product search
   searchProduct: async (userID, data) => {
     try {
       const res = await API.get(`/product/search/${userID}?data=${data}`);
       set({ product: res.data });
-      console.log(res.data)
     } catch (error) {
-      console.log(error.response);
+      set({
+        serverError: {
+          action: "search",
+          text: error.response.data.errorMessage,
+        },
+      });
+    }
+  },
+
+  //Product limit search
+  limitProductSearch: async (userID, data) => {
+    try {
+      const res = await API.get(`/product/search/${userID}?data=${data}`);
+      set({ productLimit: res.data });
+    } catch (error) {
+      set({
+        serverError: {
+          action: "limitSearch",
+          text: error.response.data.errorMessage,
+        },
+      });
     }
   },
 });

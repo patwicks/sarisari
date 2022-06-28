@@ -42,11 +42,11 @@ const ProductTable = ({ currentItems }) => {
                 <td className="p-2">₱ {item.sellPrice}</td>
                 <td className="p-2">
                   {item.stock > 10 ? (
-                    <p className="truncate rounded-sm border-[1px] border-green-300 px-1 text-center text-[0.7rem] text-green-600">
+                    <p className="truncate rounded-sm  px-1 text-center text-[0.7rem] text-green-600">
                       In Stock
                     </p>
                   ) : (
-                    <p className="truncate border-[1px] border-red-200 px-1 text-center text-[0.7rem] text-red-400">
+                    <p className="truncate px-1 text-center text-[0.7rem] text-red-400">
                       Out of Stock
                     </p>
                   )}
@@ -74,7 +74,6 @@ const ProductTable = ({ currentItems }) => {
       </div>
       <div className="flex w-full min-w-[288px] flex-col overflow-y-scroll md:hidden">
         {currentItems?.map((item) => (
-          // <div className="flex w-full bg-red-500">
           <div className="flex w-full border-b-[1px] p-2" key={item._id}>
             <div className="w-[10%]">
               <div className="h-7 w-7 overflow-hidden rounded-full border-[1px] border-black/80 bg-primary/80">
@@ -95,7 +94,9 @@ const ProductTable = ({ currentItems }) => {
                   in stock
                 </p>
               ) : (
-                <p className="pl-2 text-[0.8rem] capitalize text-red-600">out of stock</p>
+                <p className="pl-2 text-[0.8rem] capitalize text-red-600">
+                  out of stock
+                </p>
               )}
               <p className="pl-2 text-[0.7rem]">₱ {item.sellPrice}</p>
               <div className="absolute right-0 bottom-0 flex gap-x-2">
