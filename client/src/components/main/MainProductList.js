@@ -1,8 +1,5 @@
 import React from "react";
-import useProductStore from "../../store/productStore";
-const MainProductList = () => {
-  const productLimit = useProductStore((state) => state.productLimit);
-
+const MainProductList = ({ currentItems }) => {
   return (
     <div className="pt-4">
       <p className="mb-4 text-sm">Product</p>
@@ -24,9 +21,9 @@ const MainProductList = () => {
           </tr>
         </thead>
         <tbody>
-          {productLimit?.map((item) => (
+          {currentItems?.map((item) => (
             <tr className="border-b" key={item._id}>
-              <td className="flex items-center justify-center">
+              <td className="p-2">
                 <div className="h-7 w-7 overflow-hidden rounded-full bg-primary/50">
                   <img
                     className="h-full w-full object-center"
@@ -41,7 +38,12 @@ const MainProductList = () => {
               <td className="p-2 text-center text-sm">
                 <button
                   disabled={item?.stock <= 0 ? true : false}
-                  className="h-7 w-7 rounded-sm bg-primary text-white hover:opacity-70"
+                  className={
+                    item?.stock <= 0
+                      ? `h-7 w-7 cursor-not-allowed rounded-sm bg-primary/30 text-white hover:opacity-100`
+                      : `h-7 w-7 rounded-sm bg-primary text-white hover:opacity-70`
+                  }
+                  onClick={() => console.log(item?.name)}
                 >
                   +
                 </button>

@@ -1,11 +1,36 @@
-import React, { memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ReactPaginate from "react-paginate";
 // icons
 import { FaShoppingCart } from "react-icons/fa";
 // local imports
 import MainProductList from "./MainProductList";
-const Main = ({ debounceChangeHandler }) => {
+import useProductStore from "../../store/productStore";
+
+const Main = ({ debounceChangeHandler, serverError, itemsPerPage }) => {
   const navigate = useNavigate();
+
+  const product = useProductStore((state) => state.product);
+  //test code paginate start
+  // We start with an empty list of items.
+  const [currentItems, setCurrentItems] = useState(null);
+  const [pageCount, setPageCount] = useState(0);
+  // Here we use item offsets; we could also use page offsets
+  // following the API or data you're working with.
+  const [itemOffset, setItemOffset] = useState(0);
+
+  useEffect(() => {
+    // Fetch items from another resources.
+    const endOffset = itemOffset + itemsPerPage;
+    setCurrentItems(product.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(product.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, product]);
+
+  // Invoke when user click to request another page.
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % product.length;
+    setItemOffset(newOffset);
+  };
   return (
     <div className="h-full w-full min-w-[288px] bg-whitey-100 py-2 px-2 pt-5">
       {/* top search input */}
@@ -27,7 +52,32 @@ const Main = ({ debounceChangeHandler }) => {
           0
         </p>
       </div>
-      <MainProductList />
+      {serverError.action === "fetch" && serverError.text !== "" && (
+        <p className="mt-2 w-full rounded-sm bg-primary/20 py-2 text-center text-sm text-primary/80 ">
+          {serverError.text}
+        </p>
+      )}
+      <MainProductList currentItems={currentItems} />
+      {product?.length > 0 && (
+        <ReactPaginate
+          className="center mt-5 w-full"
+          previousLabel="<"
+          breakLabel="..."
+          nextLabel=">"
+          pageRangeDisplayed={3}
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          //style
+          previousClassName="hover:bg-primary text-white bg-primary/50 mx-1 w-5 h-5 rounded-sm overflow-hidden"
+          previousLinkClassName="w-full h-full center"
+          nextClassName="hover:bg-primary text-white bg-primary/50 mx-1 w-5 h-5 rounded-sm overflow-hidden"
+          nextLinkClassName="w-full h-full center"
+          pageClassName="hover:bg-primary text-white bg-primary/50 mx-1 w-5 h-5 rounded-sm overflow-hidden"
+          pageLinkClassName="w-full h-full center"
+          activeClassName="bg-primary"
+          activeLinkClassName="bg-primary"
+        />
+      )}
     </div>
   );
 };

@@ -10,6 +10,7 @@ const productStore = (set) => ({
   //main
   product: [],
   productLimit: [],
+  cart: [],
 
   fetchAllProducts: async (userID) => {
     try {
@@ -110,19 +111,7 @@ const productStore = (set) => ({
   },
 
   //Product limit search
-  limitProductSearch: async (userID, data) => {
-    try {
-      const res = await API.get(`/product/search/${userID}?data=${data}`);
-      set({ productLimit: res.data });
-    } catch (error) {
-      set({
-        serverError: {
-          action: "limitSearch",
-          text: error.response.data.errorMessage,
-        },
-      });
-    }
-  },
+  addToCart: (item, count) => {},
 });
 
 const useProductStore = create(productStore);

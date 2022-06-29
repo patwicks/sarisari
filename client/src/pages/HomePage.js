@@ -10,19 +10,30 @@ import useProductStore from "../store/productStore";
 
 const HomePage = () => {
   const user = useUserStore((state) => state.user);
-  const limitProductSearch = useProductStore(
-    (state) => state.limitProductSearch
+  const { fetchAllProducts, serverError, searchProduct } = useProductStore(
+    (state) => state
   );
   const userID = user._id;
 
   const onType = (e) => {
     let data = e.target.value;
-    limitProductSearch(userID, data);
+    searchProduct(userID, data);
   };
   const debounceChangeHandler = debounce(onType, 500);
+
+  React.useEffect(() => {
+    if (userID) {
+      fetchAllProducts(userID);
+    }
+  }, [fetchAllProducts, userID]);
+
   return (
     <AppLayout>
-      <Main debounceChangeHandler={debounceChangeHandler} />
+      <Main
+        debounceChangeHandler={debounceChangeHandler}
+        serverError={serverError}
+        itemsPerPage={10}
+      />
     </AppLayout>
   );
 };

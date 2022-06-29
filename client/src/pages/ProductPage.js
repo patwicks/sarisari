@@ -19,7 +19,7 @@ const ProductPage = () => {
 
   return (
     <AppLayout>
-      <Product itemsPerPage={10} serverError={serverError} />
+      <Product itemsPerPage={8} serverError={serverError} />
     </AppLayout>
   );
 };
