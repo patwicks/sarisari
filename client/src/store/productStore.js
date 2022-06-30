@@ -1,4 +1,5 @@
 import create from "zustand";
+import { devtools, persist } from "zustand/middleware";
 import API from "../api/Api";
 
 const productStore = (set) => ({
@@ -109,11 +110,16 @@ const productStore = (set) => ({
       });
     }
   },
-
-  //Product limit search
-  addToCart: (item, count) => {},
 });
 
-const useProductStore = create(productStore);
+// const useProductStore = create(productStore);
+const useProductStore = create(
+  devtools(
+    persist(productStore, {
+      name: "products",
+      getStorage: () => sessionStorage,
+    })
+  )
+);
 
 export default useProductStore;

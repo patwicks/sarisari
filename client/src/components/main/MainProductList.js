@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import AddToCartModal from "../product/cart/AddToCartModal";
+import useActionStore from "../../store/actionStore";
 const MainProductList = ({ currentItems }) => {
+  const { setShowModal, isVisible } = useActionStore((state) => state);
+  const [item, setItem] = useState();
+
   return (
-    <div className="pt-4">
+    <div className="relative pt-4">
       <p className="mb-4 text-sm">Product</p>
       <table className="w-full ">
         <thead>
@@ -43,7 +48,10 @@ const MainProductList = ({ currentItems }) => {
                       ? `h-7 w-7 cursor-not-allowed rounded-sm bg-primary/30 text-white hover:opacity-100`
                       : `h-7 w-7 rounded-sm bg-primary text-white hover:opacity-70`
                   }
-                  onClick={() => console.log(item?.name)}
+                  onClick={() => {
+                    setShowModal();
+                    setItem(item);
+                  }}
                 >
                   +
                 </button>
@@ -52,6 +60,10 @@ const MainProductList = ({ currentItems }) => {
           ))}
         </tbody>
       </table>
+      {/* modal */}
+      {isVisible ? (
+        <AddToCartModal setShowModal={setShowModal} item={item} />
+      ) : null}
     </div>
   );
 };

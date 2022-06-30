@@ -13,7 +13,7 @@ const HomePage = () => {
   const { fetchAllProducts, serverError, searchProduct } = useProductStore(
     (state) => state
   );
-  const userID = user._id;
+  const userID = user?._id;
 
   const onType = (e) => {
     let data = e.target.value;

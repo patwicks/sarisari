@@ -2,8 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 //icons
 import { IoChevronBack } from "react-icons/io5";
+import { MdDelete } from "react-icons/md";
 
-const CheckOut = () => {
+const CheckOut = (props) => {
+  const { cartItem, removeToCart, decreaseQuantity, increaseQuantity } = props;
   const navigate = useNavigate();
   return (
     <div className="h-full max-h-screen w-full overflow-scroll p-2">
@@ -23,23 +25,55 @@ const CheckOut = () => {
             <th>Name</th>
             <th>Price</th>
             <th>Quantity</th>
+            <th>Total</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              <div className="h-8 w-8 overflow-hidden rounded-full border">
-                <img
-                  className="h-full w-full object-center"
-                  src={require("../../assets/products.png")}
-                  alt="product"
-                />
-              </div>
-            </td>
-            <td className="text-sm">Milk 1 liter</td>
-            <td className="text-sm">₱ 250</td>
-            <td className="text-sm">2</td>
-          </tr>
+          {cartItem?.map((product, index) => {
+            const { name, sellPrice, image, _id: itemID } = product.item;
+            return (
+              <tr key={index}>
+                <td>
+                  <div className="h-8 w-8 overflow-hidden rounded-full border">
+                    <img
+                      className="h-full w-full object-center"
+                      src={image[0].url}
+                      alt="product"
+                    />
+                  </div>
+                </td>
+                <td className="text-sm">{name}</td>
+                <td className="text-sm">₱ {sellPrice}</td>
+                <td className="text-sm">{product.quantity}</td>
+                <td className="text-sm font-semibold">{product.total}</td>
+                <td>
+                  <div className="flex gap-x-1">
+                    <button
+                      className="h-7 w-7 rounded-sm bg-blacky/70 text-xl text-white outline-none"
+                      onClick={() => decreaseQuantity(itemID, cartItem)}
+                    >
+                      -
+                    </button>
+                    <button
+                      className="h-7 w-7 rounded-sm bg-blacky/70 text-xl text-white outline-none"
+                      onClick={() => increaseQuantity(itemID, cartItem)}
+                    >
+                      +
+                    </button>
+                  </div>
+                </td>
+
+                <td>
+                  <div className=" center h-7 w-7 rounded-sm bg-blacky/70 text-white">
+                    <MdDelete
+                      className="cursor-pointer text-lg hover:text-red-400"
+                      onClick={() => removeToCart(itemID, cartItem)}
+                    />
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
       <p className="mt-2 border-t py-5 text-right">

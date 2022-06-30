@@ -6,11 +6,13 @@ import { FaShoppingCart } from "react-icons/fa";
 // local imports
 import MainProductList from "./MainProductList";
 import useProductStore from "../../store/productStore";
+import useCartStore from "../../store/cartStore";
 
 const Main = ({ debounceChangeHandler, serverError, itemsPerPage }) => {
   const navigate = useNavigate();
 
-  const product = useProductStore((state) => state.product);
+  const { product } = useProductStore((state) => state);
+  const cart = useCartStore((state) => state.cart);
   //test code paginate start
   // We start with an empty list of items.
   const [currentItems, setCurrentItems] = useState(null);
@@ -49,7 +51,7 @@ const Main = ({ debounceChangeHandler, serverError, itemsPerPage }) => {
           onClick={() => navigate("/checkout")}
         />
         <p className="center absolute -right-2 -top-2 h-4 w-4 rounded-full bg-primary text-[0.7rem] font-semibold text-whitey-100">
-          0
+          {cart?.length}
         </p>
       </div>
       {serverError.action === "fetch" && serverError.text !== "" && (
@@ -57,7 +59,14 @@ const Main = ({ debounceChangeHandler, serverError, itemsPerPage }) => {
           {serverError.text}
         </p>
       )}
-      <MainProductList currentItems={currentItems} />
+      {product?.length <= 0 ? (
+        <p className="mt-10 text-center text-sm text-blacky/70">
+          Search a product now
+        </p>
+      ) : (
+        <MainProductList currentItems={currentItems} />
+      )}
+
       {product?.length > 0 && (
         <ReactPaginate
           className="center mt-5 w-full"
