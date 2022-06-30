@@ -8,7 +8,7 @@ const MainProductList = ({ currentItems }) => {
   return (
     <div className="relative pt-4">
       <p className="mb-4 text-sm">Product</p>
-      <table className="w-full ">
+      <table className="mt-2 w-full border-collapse">
         <thead>
           <tr>
             <th className="text-semibold text-center text-sm text-blacky/80">

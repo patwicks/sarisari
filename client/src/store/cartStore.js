@@ -5,7 +5,7 @@ const cartStore = (set) => ({
   cart: [],
   //add to cart
   addToCart: (item, quantity, total) => {
-    return set((state) => ({
+    set((state) => ({
       cart: [{ item, quantity, total }, ...state.cart],
     }));
   },
