@@ -6,6 +6,7 @@ const AddToCartModal = ({ setShowModal, item }) => {
   const { addToCart } = useCartStore((state) => state);
   const [error, setError] = useState(null);
   const [count, setCount] = React.useState(1);
+  const { _id: productID, name, sellPrice, image } = item;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,7 +16,7 @@ const AddToCartModal = ({ setShowModal, item }) => {
       return setError("Invalid quantity input!");
     } else {
       const total = quantity * item.sellPrice;
-      addToCart(item, quantity, total);
+      addToCart(productID, name, image, sellPrice, quantity, total);
       setCount(0);
       setShowModal();
     }

@@ -142,6 +142,7 @@ exports.UPDATE_PRODUCT = async (req, res) => {
 //UPDATE MULTIPLE STOCK AFTER CHECKOUT
 exports.UPDATE_PRODUCTS_STOCK = async (req, res) => {
   try {
+    //req = productId and new stock
     //need an array req body
     const purchaseProducts = req.body;
     if (purchaseProducts === null) {
@@ -165,7 +166,7 @@ exports.UPDATE_PRODUCTS_STOCK = async (req, res) => {
     console.error(error); //for deubbuging only
     return res.status(400).json({
       errorMessage:
-        "Something went went wrong while checking out the transaction!",
+        "Something went went wrong while checking out!",
     });
   }
 };
