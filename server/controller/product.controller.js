@@ -139,38 +139,6 @@ exports.UPDATE_PRODUCT = async (req, res) => {
   }
 }; // UPDATE A SINGLE PRODUCT - IMAGE EXCLUDED TO UPDATE - NOT FORM DATA
 
-//UPDATE MULTIPLE STOCK AFTER CHECKOUT
-exports.UPDATE_PRODUCTS_STOCK = async (req, res) => {
-  try {
-    //req = productId and new stock
-    //need an array req body
-    const purchaseProducts = req.body;
-    if (purchaseProducts === null) {
-      return res
-        .status(400)
-        .json({ errorMessage: "Please purchase a product first!" });
-    } else {
-      purchaseProducts.forEach(async (product) => {
-        const updateStock = await Product.findByIdAndUpdate(
-          { _id: product.id },
-          { stock: product.newStock }
-        );
-        updateStock.save();
-      });
-
-      return res
-        .status(200)
-        .json({ successMessage: "Transaction successfull!" });
-    }
-  } catch (error) {
-    console.error(error); //for deubbuging only
-    return res.status(400).json({
-      errorMessage:
-        "Something went went wrong while checking out!",
-    });
-  }
-};
-
 //These are all in update
 exports.DELETE_PRODUCT = async (req, res) => {
   try {

@@ -49,3 +49,24 @@ exports.SAVE_TRANSACTION = async (req, res) => {
       .json({ errorMessage: "Something went wrong while checking out!" });
   }
 };
+
+exports.POPULATE_TRANSACTIONS = async (req, res) => {
+  try {
+    const { userID } = req.params;
+    const { transaction } = await User.findById(userID).populate("transaction");
+    if (!transaction) {
+      return res
+        .status(400)
+        .json({ errorMessage: "Failed to load transaction data!" });
+    } else {
+      return res.status(200).json(transaction);
+    }
+  } catch (error) {
+    console.error(error.message); //for debugging only
+    return res
+      .status(500)
+      .json({
+        errorMessage: "Something went wrong while getting transaction data!",
+      });
+  }
+};

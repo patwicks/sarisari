@@ -11,6 +11,10 @@ import SignupPage from "./pages/SignupPage";
 import AddProductPage from "./pages/AddProductPage";
 import EditProductPage from "./pages/EditProductPage";
 import DeleteProductPage from "./pages/DeleteProductPage";
+//sales
+import SalesPage from "./pages/SalesPage";
+//account
+import AccountPage from "./pages/AccountPage";
 
 // const
 const App = () => {
@@ -32,6 +36,10 @@ const App = () => {
           path="/products/delete/:productID"
           element={<DeleteProductPage />}
         />
+        {/* Sales page */}
+        <Route path="/sales" element={<SalesPage />} />
+        {/* account */}
+        <Route path="/account" element={<AccountPage />} />
       </Routes>
     </BrowserRouter>
   );

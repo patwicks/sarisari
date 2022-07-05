@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     item: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
-    dailySale: [{ type: mongoose.Schema.Types.ObjectId, ref: "Transaction" }],
+    transaction: [{ type: mongoose.Schema.Types.ObjectId, ref: "Transaction" }],
   },
   { timestamps: true }
 );

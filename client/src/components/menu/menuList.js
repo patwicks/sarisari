@@ -2,7 +2,7 @@ import React from "react";
 
 //icons
 import { AiFillHome, AiOutlineShoppingCart } from "react-icons/ai";
-import { BsGraphUp, BsCreditCard2BackFill } from "react-icons/bs";
+import { BsGraphUp } from "react-icons/bs";
 import { MdManageAccounts } from "react-icons/md";
 
 const menuList = [
@@ -21,11 +21,11 @@ const menuList = [
     route: "/sales",
     icon: <BsGraphUp />,
   },
-  {
-    title: "Credit",
-    route: "/credit",
-    icon: <BsCreditCard2BackFill />,
-  },
+  // {
+  //   title: "Credit",
+  //   route: "/credit",
+  //   icon: <BsCreditCard2BackFill />,
+  // },
   {
     title: "Account",
     route: "/account",

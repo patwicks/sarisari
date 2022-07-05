@@ -4,7 +4,6 @@ const {
   UPDATE_PRODUCT,
   DELETE_PRODUCT,
   SEARCH_PRODUCT,
-  UPDATE_PRODUCTS_STOCK,
   FETCH_ONE_PRODOCT,
   POPULATE_ITEM,
 } = require("../controller/product.controller");
@@ -17,6 +16,5 @@ router.patch("/update/:productID", UPDATE_PRODUCT);
 router.delete("/delete/:productID/:userID", DELETE_PRODUCT);
 //search
 router.get("/search/:userID", SEARCH_PRODUCT);
-router.patch("/stock/new", UPDATE_PRODUCTS_STOCK);
 
 module.exports = router;
