@@ -1,9 +1,21 @@
-import React from 'react'
-
+import React from "react";
+import TransactionTable from "./TransactionTable";
+import DailySalesChart from "./DailySalesChart";
 const Sales = () => {
   return (
-    <div>Sales</div>
-  )
-}
+    <div className="center min-w-[288px] flex-col p-2">
+      <h1 className="my-5 w-full text-left text-xl font-semibold">
+        Daily Sales
+      </h1>
+      <div className="h-full w-full bg-slate-200 md:w-[95%]">
+        <DailySalesChart />
+      </div>
+      <div className="mt-5 w-full ">
+        <h className="text-xl font-semibold">Latest Transaction</h>
+        <TransactionTable />
+      </div>
+    </div>
+  );
+};
 
-export default Sales
+export default Sales;
