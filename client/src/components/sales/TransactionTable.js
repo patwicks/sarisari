@@ -1,25 +1,34 @@
 import React from "react";
-
+import moment from "moment";
+import useTransactionStore from "../../store/transactionStore";
 const TransactionTable = () => {
+  const transaction = useTransactionStore((state) => state.transaction);
+
   return (
-    <table className="w-full mt-5">
-      <thead>
-        <tr className="text-left border text-sm">
-          <th className="p-2">Transaction ID</th>
-          <th className="p-2">Date</th>
-          <th className="p-2">Grand Total</th>
-          <th className="p-2">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td className="p-1 text-sm">62c2eb0f88691584c838fad5</td>
-          <td className="p-1 text-sm">July 05, 2022</td>
-          <td className="p-1 text-sm"> $ 560</td>
-          <td className="p-1 text-sm text-green-600">successfull</td>
-        </tr>
-      </tbody>
-    </table>
+    <div className="overflow-x-auto mt-5 w-full">
+      <table className="w-full border">
+        <thead>
+          <tr className="truncate border text-left text-sm">
+            <th className="p-2">Transaction ID</th>
+            <th className="p-2">Date</th>
+            <th className="p-2">Grand Total</th>
+            <th className="p-2">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {transaction?.map((data) => (
+            <tr className="border truncate" key={data._id}>
+              <td className="p-2 text-sm">{data._id}</td>
+              <td className="p-2 text-sm">
+                {moment(data.date).format("MMM Do YY")}{" "}
+              </td>
+              <td className="p-2 text-sm">₱ {data.grandTotal}</td>
+              <td className="p-2 text-sm text-green-600">success</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
