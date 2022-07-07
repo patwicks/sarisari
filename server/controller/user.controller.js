@@ -183,7 +183,6 @@ exports.UPDATE_PROFILE_PIC = async (req, res) => {
       }
     }
   } catch (error) {
-    console.error(error.message);
     return res.status(500).json({
       errorMessage: "Something went wrong while updating profile, try again!",
     });

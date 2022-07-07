@@ -48,14 +48,31 @@ const userStore = (set) => ({
     try {
       const res = await API.post("/user/create", data);
       if (res.data) {
-        console.log(res.data.successMessage);
         set({ serverSuccessCreate: res.data.successMessage });
         set({ serverErrorCreate: "" });
       }
     } catch (error) {
-      console.log(error.response.data.errorMessage);
       set({ serverErrorCreate: error.response.data.errorMessage });
       set({ serverSuccessCreate: "" });
+    }
+  },
+  updateAvatar: async (userID, image) => {
+    try {
+      const res = await API.patch(`/user/profile/update/${userID}`, image);
+      if (res) {
+        alert(res.data.successMessage + "Reload the Page!");
+      }
+    } catch (error) {
+      alert(error.response.data.errorMessage);
+    }
+  },
+  //LogoutUser
+  logoutUser: async () => {
+    const res = await API.delete("/user/logout", { withCredentials: true });
+    if (res) {
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.reload();
     }
   },
 });

@@ -21,16 +21,11 @@ const menuList = [
     route: "/sales",
     icon: <BsGraphUp />,
   },
-  // {
-  //   title: "Credit",
-  //   route: "/credit",
-  //   icon: <BsCreditCard2BackFill />,
-  // },
   {
     title: "Account",
     route: "/account",
     icon: <MdManageAccounts />,
-  },
+  }
 ];
 
 export default menuList;
