@@ -65,7 +65,12 @@ exports.POPULATE_TRANSACTIONS = async (req, res) => {
         .status(400)
         .json({ errorMessage: "Failed to load transaction data!" });
     } else {
-      return res.status(200).json(sliceData);
+      return res
+        .status(200)
+        .json({
+          latestTransaction: sliceData,
+          allTransaction: sortedTransaction,
+        });
     }
   } catch (error) {
     console.error(error.message); //for debugging only
