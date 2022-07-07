@@ -8,7 +8,7 @@ import Modal from "./Modal";
 import { FaUserEdit } from "react-icons/fa";
 
 const Account = () => {
-  const { user, updateAvatar, isUploading } = useUserStore((state) => ({
+  const { user, updateAvatar } = useUserStore((state) => ({
     user: state.user,
     updateAvatar: state.updateAvatar,
   }));
@@ -21,7 +21,7 @@ const Account = () => {
       setTimeout(() => {
         updateAvatar(userID, data);
         actions.resetForm();
-        actions.setSubmitting(false)
+        actions.setSubmitting(false);
         setOpenModal(!openModal);
       }, 2000);
     }
@@ -69,7 +69,7 @@ const Account = () => {
             onChange={(e) => setFieldValue("image", e.target.files[0])}
           />
           <button
-            className="mt-5 md:mt-0 rounded-md border-none bg-blue-400 px-5 py-2 text-sm text-white outline-none hover:opacity-60"
+            className="mt-5 rounded-md border-none bg-blue-400 px-5 py-2 text-sm text-white outline-none hover:opacity-60 md:mt-0"
             type="submit"
             disabled={isSubmitting}
           >
