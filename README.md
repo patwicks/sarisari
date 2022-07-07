@@ -5,7 +5,7 @@
 
 # SariSari
 
-Web-based daily sales tracker for small sari sari stores
+Fullstack Web-based daily sales tracker for small sari sari stores
 
 ## Website link
 - [SariSari Tracker](https://sarisari-tracker.netlify.app/)
