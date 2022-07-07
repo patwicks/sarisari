@@ -5,7 +5,7 @@
 
 # SariSari
 
-Fullstack Web-based daily sales tracker for small sari sari stores
+Fullstack Web-based daily sales tracker for small sari sari stores.
 
 ## Website link
 - [SariSari Tracker](https://sarisari-tracker.netlify.app/)
@@ -22,9 +22,9 @@ Fullstack Web-based daily sales tracker for small sari sari stores
 
 
 <p align="center">
-<img src="https://github.com/patwicks/sarisari/blob/main/client/src/assets/readme_img/login.png" width="600" height="400">
-<img src="https://github.com/patwicks/sarisari/blob/main/client/src/assets/readme_img/home.png" width="600" height="400">
-<img src="https://github.com/patwicks/sarisari/blob/main/client/src/assets/readme_img/product.png" width="600" height="400">
-<img src="https://github.com/patwicks/sarisari/blob/main/client/src/assets/readme_img/sales.png" width="600" height="400">
-<img src="https://github.com/patwicks/sarisari/blob/main/client/src/assets/readme_img/account.png" width="600" height="400">
+<img src="https://github.com/patwicks/sarisari/blob/main/client/src/assets/readme_img/login.png" width="700" height="400">
+<img src="https://github.com/patwicks/sarisari/blob/main/client/src/assets/readme_img/home.png" width="700" height="400">
+<img src="https://github.com/patwicks/sarisari/blob/main/client/src/assets/readme_img/product.png" width="700" height="400">
+<img src="https://github.com/patwicks/sarisari/blob/main/client/src/assets/readme_img/sales.png" width="700" height="400">
+<img src="https://github.com/patwicks/sarisari/blob/main/client/src/assets/readme_img/account.png" width="700" height="400">
 </p>
