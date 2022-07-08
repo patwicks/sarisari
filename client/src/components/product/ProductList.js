@@ -6,7 +6,7 @@ const ProductTable = ({ currentItems }) => {
 
   return (
     <>
-      <div className="hidden w-full min-w-[288px] overflow-y-scroll md:block">
+      <div className="hidden w-full min-w-[288px] md:block">
         <table className="mt-2 w-full border-collapse">
           <thead>
             <tr className="border text-left">
@@ -72,7 +72,7 @@ const ProductTable = ({ currentItems }) => {
           </tbody>
         </table>
       </div>
-      <div className="flex w-full min-w-[288px] flex-col overflow-y-scroll md:hidden">
+      <div className="flex w-full min-w-[288px] flex-col md:hidden">
         {currentItems?.map((item) => (
           <div className="flex w-full border-b-[1px] p-2" key={item._id}>
             <div className="w-[10%]">
@@ -101,13 +101,13 @@ const ProductTable = ({ currentItems }) => {
               <p className="pl-2 text-[0.7rem]">₱ {item.sellPrice}</p>
               <div className="absolute right-0 bottom-0 flex gap-x-2">
                 <button
-                  className=" w-14 rounded-sm bg-blue-400 text-[0.6rem] text-white hover:opacity-80 "
+                  className=" mx-2  w-14 md:mx-0 rounded-sm bg-blue-400 text-[0.6rem] text-white hover:opacity-80 "
                   onClick={() => navigateTo(`/products/edit/${item._id}`)}
                 >
                   Edit
                 </button>
                 <button
-                  className=" w-14 rounded-sm bg-primary/80 text-[0.6rem] text-white hover:opacity-80 "
+                  className=" mx-2  w-14 md:mx-0 rounded-sm bg-primary/80 text-[0.6rem] text-white hover:opacity-80 "
                   onClick={() => navigateTo(`/products/delete/${item._id}`)}
                 >
                   Delete

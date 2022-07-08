@@ -34,7 +34,7 @@ const Main = ({ debounceChangeHandler, serverError, itemsPerPage }) => {
     setItemOffset(newOffset);
   };
   return (
-    <div className="h-full w-full min-w-[288px] bg-whitey-100 py-2 px-2 pt-5">
+    <div className="h-full w-full min-w-[288px] py-2 px-2 pt-5">
       {/* top search input */}
       <div className="relative w-full">
         <p className="mb-4 text-sm">Search by product name:</p>

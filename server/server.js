@@ -16,6 +16,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: "https://sarisari-tracker.netlify.app",
+    // origin: "http://localhost:3000",
     credentials: true,
   })
 );

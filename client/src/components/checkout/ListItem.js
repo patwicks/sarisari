@@ -5,7 +5,7 @@ const ListItem = () => {
   const { cart, removeToCart, decreaseQuantity, increaseQuantity } =
     useCartStore((state) => state);
   return (
-    <div className=" max-h-[300px] w-full min-w-[288px] overflow-scroll ">
+    <div className=" max-h-[300px] w-full min-w-[288px] overflow-scroll scrollbar-hide">
       <table className="mt-2 w-full border-collapse">
         <thead>
           <tr className="fint-semibold text-left text-sm text-blacky/70">

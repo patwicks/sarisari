@@ -17,7 +17,7 @@ module.exports = {
         poppins: ["Poppins", "sans-serif"],
       },
       colors: {
-        primary: "#FF3D57",
+        primary: "#fda764",
         lightPink: "#FBDBE0",
         blacky: "#0F1419",
         subBlack: "#536471",
@@ -32,5 +32,5 @@ module.exports = {
   },
   variants: ["responsive", "hover", "focus", "active"],
 
-  plugins: [require("tailwindcss-animation-delay")],
+  plugins: [require("tailwindcss-animation-delay"), require("tailwind-scrollbar-hide")],
 };

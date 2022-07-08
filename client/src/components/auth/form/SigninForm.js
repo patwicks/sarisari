@@ -12,25 +12,29 @@ const SigninForm = (props) => {
     touched,
     errors,
     isSubmitting,
-    serverError
+    serverError,
   } = props;
   return (
-    <div className="center mt-10 w-full flex-col sm:w-4/5 md:w-[450px]">
+    <div className="center flex-col md:w-[80%] w-full">
       {/* Form header start */}
-      <div className="h-10 w-10 animate-bounce">
+      <div className="h-10 w-10">
         <img
-          className="h-full w-full object-center"
+          className="h-full w-full object-center animate-bounce"
           src={Logo}
           alt="sarisaristore"
         />
       </div>
-      <p className="my-2 text-sm uppercase text-subBlack">sari sari store</p>
+      <p className="my-2 text-sm uppercase text-subBlack ">sari sari store</p>
       <h1 className="text-2xl font-semibold">Signin</h1>
-      <p className="text-center text-sm text-subBlack">
+      <p className="text-center text-sm text-subBlack mb-10">
         Track, monitor, and record your daily sales
       </p>
-      <div className="my-5 w-4/5 border md:w-full"></div>
-      {serverError !== "" && <p className="w-full text-center text-sm py-2 rounded-sm bg-red-100 text-red-500 max-w-[450px]">{serverError}</p>}
+      {/* <div className="my-5 w-4/5 border md:w-full"></div> */}
+      {serverError !== "" && (
+        <p className="w-full max-w-[450px] rounded-sm bg-red-100 py-2 text-center text-sm text-red-500">
+          {serverError}
+        </p>
+      )}
       {/* Form header End / Form body Start */}
       <form className="w-full" autoComplete="off" onSubmit={handleSubmit}>
         <input
