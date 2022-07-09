@@ -22,7 +22,7 @@ const AppLayout = ({ children }) => {
           {isLogin === false ? (
             <SigninPage />
           ) : (
-            <div className="h-screen w-screen min-w-[320] overflow-hidden">
+            <div className="h-screen max-h-screen w-screen min-w-[320] overflow-hidden">
               <div className="absolute z-10 h-full w-[10%] min-w-[2rem] overflow-hidden bg-slate-400 text-blacky md:w-[20%]">
                 <SideMenu />
               </div>

@@ -32,5 +32,8 @@ module.exports = {
   },
   variants: ["responsive", "hover", "focus", "active"],
 
-  plugins: [require("tailwindcss-animation-delay"), require("tailwind-scrollbar-hide")],
+  plugins: [
+    require("tailwindcss-animation-delay"),
+    require("tailwind-scrollbar-hide"),
+  ],
 };
