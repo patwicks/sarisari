@@ -22,8 +22,8 @@ const AppLayout = ({ children }) => {
           {isLogin === false ? (
             <SigninPage />
           ) : (
-            <div className="h-screen max-h-screen w-screen min-w-[320] overflow-hidden">
-              <div className="absolute z-10 h-full w-[10%] min-w-[2rem] overflow-hidden bg-slate-400 text-blacky md:w-[20%]">
+            <div className="h-screen max-h-screen w-screen min-w-[320] overflow-scroll scrollbar-hide">
+              <div className="absolute z-10 h-screen w-[10%] min-w-[2rem] overflow-hidden bg-slate-400 text-blacky md:w-[20%]">
                 <SideMenu />
               </div>
               <div className="ml-[10%] max-h-full overflow-y-scroll md:ml-[20%] md:p-2">

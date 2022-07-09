@@ -14,7 +14,7 @@ const SideMenu = () => {
   }));
 
   return (
-    <div className="relative h-full w-full overflow-hidden bg-whitey-100">
+    <div className="relative h-screen w-full overflow-auto scrollbar-hide bg-whitey-100">
       {/* Top start */}
       <div className="center w-full flex-col bg-primary/80 p-2 text-white md:p-4">
         <div className="h-7 w-7 overflow-hidden rounded-full border-2 border-whitey-200/75 md:h-16 md:w-16">
@@ -56,8 +56,10 @@ const SideMenu = () => {
           </li>
         </ul>
       </div>
-      <div className="hidden md:block center absolute left-0 right-0 bottom-0 w-full flex-col">
-        <p className="text-[0.6rem] truncate text-center">&copy; Copyright 2022 SariSari - Dev Pat</p>
+      <div className="center absolute left-0 right-0 bottom-0 hidden w-full flex-col md:block">
+        <p className="truncate text-center text-[0.6rem]">
+          &copy; Copyright 2022 SariSari - Dev Pat
+        </p>
       </div>
     </div>
   );
