@@ -101,7 +101,7 @@ const SignupForm = (props) => {
           {isSubmitting ? "Signing up..." : "Signup"}
         </button>
         <p className="my-4 w-full text-center text-sm text-subBlack">
-          Don't have an account?
+          You have an account already?
           <span className="smooth-animation cursor-pointer text-blacky hover:text-primary">
             <Link to="/signin">Signin</Link>
           </span>
